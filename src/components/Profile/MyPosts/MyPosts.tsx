@@ -12,9 +12,9 @@ const MyPosts = () => {
                 <button>Send</button>
             </div>
             <div className={styles.posts}>
-                <Post/>
-                <Post/>
-                <Post/>
+                <Post message={'How are you?'} likes={5}/>
+                <Post message={`I'm good`} likes={7}/>
+                <Post message={'How old are you?'} likes={12}/>
             </div>
         </div>
     );

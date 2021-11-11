@@ -1,15 +1,16 @@
 import React from 'react';
+import {NavLink} from 'react-router-dom';
 // @ts-ignore
 import styles from './NavBar.module.css';
 
 const NavBar = () => {
     return (
-        <nav style={{outline:'1px solid red'}} className={styles.sideBar}>
+        <nav style={{outline: '1px solid red'}} className={styles.sideBar}>
             <ul>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Messages</a></li>
-                <li><a href="#">Dialogs</a></li>
-                <li><a href="#">Users</a></li>
+                <li><NavLink to="/profile">Profile</NavLink></li>
+                <li><NavLink to="/dialogs">Dialogs</NavLink></li>
+                <li><NavLink to="/settings">Settings</NavLink></li>
+                <li><NavLink to="/users">Users</NavLink></li>
             </ul>
         </nav>
     );

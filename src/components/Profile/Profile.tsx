@@ -5,7 +5,7 @@ import MyPosts from './MyPosts/MyPosts';
 
 const Profile = () => {
     return (
-        <main style={{outline: '1px solid red'}} className={styles.content}>
+        <main style={{outline: '1px solid red'}} >
             <div>
                 <img src="https://i.imgur.com/3aXPJ2f.png" alt=""/>
             </div>
