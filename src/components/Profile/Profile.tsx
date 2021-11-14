@@ -2,16 +2,12 @@ import React from 'react';
 // @ts-ignore
 import styles from './profile.module.css';
 import MyPosts from './MyPosts/MyPosts';
+import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 const Profile = () => {
     return (
-        <main style={{outline: '1px solid red'}} >
-            <div>
-                <img src="https://i.imgur.com/3aXPJ2f.png" alt=""/>
-            </div>
-            <div>
-                ava + description
-            </div>
+        <main style={{outline: '1px solid red'}}>
+            <ProfileInfo/>
             <MyPosts/>
         </main>
     );

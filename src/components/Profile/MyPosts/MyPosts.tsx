@@ -6,10 +6,14 @@ import Post from './Post/Post';
 const MyPosts = () => {
     return (
         <div>
-            MyPost
-            <div>
-                <textarea></textarea>
-                <button>Send</button>
+            <div className={styles.sendPost}>
+                <h3>MyPost</h3>
+                <div>
+                    <textarea></textarea>
+                </div>
+                <div>
+                    <button>Send</button>
+                </div>
             </div>
             <div className={styles.posts}>
                 <Post message={'How are you?'} likes={5}/>
