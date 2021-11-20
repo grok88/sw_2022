@@ -3,7 +3,17 @@ import React from 'react';
 import styles from './myPosts.module.css';
 import Post from './Post/Post';
 
-const MyPosts = () => {
+export type PostData = {
+    id: number
+    message: string
+    likes: number
+}
+export type MyPostsPropsType = {
+    posts:PostData[]
+}
+
+
+const MyPosts:React.FC<MyPostsPropsType> = ({posts}) => {
     return (
         <div>
             <div className={styles.sendPost}>
@@ -16,9 +26,11 @@ const MyPosts = () => {
                 </div>
             </div>
             <div className={styles.posts}>
-                <Post message={'How are you?'} likes={5}/>
-                <Post message={`I'm good`} likes={7}/>
-                <Post message={'How old are you?'} likes={12}/>
+                {
+                    posts.map(post => {
+                        return <Post key={post.id} message={post.message} likes={post.likes}/>
+                    })
+                }
             </div>
         </div>
     );

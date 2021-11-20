@@ -1,24 +1,14 @@
 import React from 'react';
 import styles from './dialogs.module.css';
-import {NavLink} from 'react-router-dom';
+import {DialogItem, DialogItemPropsType} from './DialogItem/DialogItem';
+import {Message, MessageItemPropsType} from './Message/Message';
 
-const dialogs: DialogItemPropsType[] = [
-    {name: 'Sveta', id: 1},
-    {name: 'Sergey', id: 2},
-    {name: 'Tanya', id: 3},
-    {name: 'Alex', id: 4},
-    {name: 'Клара', id: 5},
-    {name: 'Иван', id: 6},
-]
-const messages: MessageItemPropsType[] = [
-    {message: 'Hi, how are you?', id: 1},
-    {message: 'I love my parents!!!', id: 2},
-    {message: 'I have a dog.', id: 3},
-]
+export type DialogsProps = {
+    dialogs:DialogItemPropsType[]
+    messages: MessageItemPropsType[]
+}
 
-
-export type DialogsProps = {}
-const Dialogs: React.FC<DialogsProps> = ({}) => {
+const Dialogs: React.FC<DialogsProps> = ({messages,dialogs}) => {
     return (
         <div className={styles.dialogs} style={{outline: '1px solid red'}}>
             <div className={styles.dialogsItems}>
@@ -30,22 +20,5 @@ const Dialogs: React.FC<DialogsProps> = ({}) => {
         </div>
     );
 };
-export type DialogItemPropsType = {
-    name: string
-    id: number
-}
-const DialogItem: React.FC<DialogItemPropsType> = ({name, id}) => {
-    return <div className={`${styles.dialog} ${styles.active}`}>
-        <NavLink to={`${id}`}>{name}</NavLink>
-    </div>
-}
-
-export type MessageItemPropsType = {
-    message: string
-    id: number
-}
-const Message: React.FC<MessageItemPropsType> = ({message, id}) => {
-    return <div className={styles.message}>{message}</div>
-}
 
 export default Dialogs;

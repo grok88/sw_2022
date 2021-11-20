@@ -1,18 +1,31 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
+import Friends, {Friend} from './Friends/Friends';
 // @ts-ignore
 import styles from './NavBar.module.css';
 
-const NavBar = () => {
+
+export  type NavBarPropsType = {
+    friendsPage: {
+        friends: Friend[];
+    }
+}
+const NavBar: React.FC<NavBarPropsType> = ({friendsPage}) => {
+    const {friends} = friendsPage;
     return (
-        <nav style={{outline: '1px solid red'}} className={styles.sideBar}>
-            <ul>
-                <li><NavLink to="/profile">Profile</NavLink></li>
-                <li><NavLink to="/dialogs">Dialogs</NavLink></li>
-                <li><NavLink to="/settings">Settings</NavLink></li>
-                <li><NavLink to="/users">Users</NavLink></li>
-            </ul>
-        </nav>
+        <>
+            <div className={styles.sideBar} style={{outline: '1px solid red'}}>
+                <nav >
+                    <ul>
+                        <li><NavLink to="/profile">Profile</NavLink></li>
+                        <li><NavLink to="/dialogs">Dialogs</NavLink></li>
+                        <li><NavLink to="/settings">Settings</NavLink></li>
+                        <li><NavLink to="/users">Users</NavLink></li>
+                    </ul>
+                </nav>
+                <Friends friends={friends}/>
+            </div>
+        </>
     );
 };
 
