@@ -1,5 +1,5 @@
-import React from 'react';
-// @ts-ignore
+import React, {ChangeEvent} from 'react';
+
 import styles from './myPosts.module.css';
 import Post from './Post/Post';
 
@@ -9,20 +9,38 @@ export type PostData = {
     likes: number
 }
 export type MyPostsPropsType = {
-    posts:PostData[]
+    profilePage: {
+        posts: PostData[]
+        newPostText: string
+    }
+    addPost: (message: string) => void
+    changePostValue: (message: string) => void
 }
 
 
-const MyPosts:React.FC<MyPostsPropsType> = ({posts}) => {
+const MyPosts: React.FC<MyPostsPropsType> = ({profilePage, addPost, changePostValue}) => {
+    const {newPostText, posts} = profilePage;
+    // const newPostElement = useRef<HTMLTextAreaElement | null>(null);
+
+    const handler = {
+        addPostHandler: () => {
+            if (newPostText) addPost(newPostText);
+        },
+        changePostValueHandler: (e: ChangeEvent<HTMLTextAreaElement>) => {
+            changePostValue(e.target.value);
+        }
+    }
+
     return (
         <div>
             <div className={styles.sendPost}>
                 <h3>MyPost</h3>
                 <div>
-                    <textarea></textarea>
+                    <textarea value={newPostText}
+                              onChange={handler.changePostValueHandler}></textarea>
                 </div>
                 <div>
-                    <button>Send</button>
+                    <button onClick={handler.addPostHandler}>Send</button>
                 </div>
             </div>
             <div className={styles.posts}>

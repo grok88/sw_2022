@@ -10,9 +10,11 @@ import {StateType} from './redux/state';
 
 export type AppPropsType = {
     state: StateType
+    addPost: (message: string) => void
+    changePostValue :(message:string) => void
 }
 
-const App: React.FC<AppPropsType> = ({state: {profilePage, dialogsPage, friendsPage}}) => {
+const App: React.FC<AppPropsType> = ({state: {profilePage, dialogsPage, friendsPage},addPost,changePostValue}) => {
     const {posts} = profilePage;
     const {dialogs, messages} = dialogsPage;
 
@@ -22,7 +24,7 @@ const App: React.FC<AppPropsType> = ({state: {profilePage, dialogsPage, friendsP
             <NavBar friendsPage={friendsPage}/>
             <div className={'app-content'}>
                 <Routes>
-                    <Route path={'/profile'} element={<Profile posts={posts}/>}/>
+                    <Route path={'/profile'} element={<Profile profilePage={profilePage} addPost={addPost} changePostValue={changePostValue}/>}/>
                     <Route path={'/dialogs/*'} element={<Dialogs messages={messages} dialogs={dialogs}/>}/>
                 </Routes>
             </div>
