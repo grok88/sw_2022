@@ -7,11 +7,12 @@ import {rerenderEntireTree} from '../rerender';
 export type StateType = {
     profilePage: {
         posts: PostData[]
-        newPostText:string
+        newPostText: string
     }
     dialogsPage: {
         dialogs: DialogItemPropsType[]
         messages: MessageItemPropsType[]
+        newDialogText: string
     }
     friendsPage: {
         friends: Friend[];
@@ -25,7 +26,7 @@ export const state: StateType = {
             {id: 2, message: `I'm good`, likes: 7},
             {id: 3, message: 'How old are you?', likes: 12},
         ],
-        newPostText:''
+        newPostText: ''
     },
     dialogsPage: {
         dialogs: [
@@ -40,32 +41,52 @@ export const state: StateType = {
             {message: 'Hi, how are you?', id: 1},
             {message: 'I love my parents!!!', id: 2},
             {message: 'I have a dog.', id: 3},
-        ]
+        ],
+        newDialogText: ''
     },
-    friendsPage:{
-        friends:[
-            {id:1,name:"Sveta",url:'https://i.pinimg.com/originals/6b/1a/d5/6b1ad5c10e932a267d41ac054bed8109.jpg'},
-            {id:2,name:"Sveta",url:'https://i.pinimg.com/originals/6b/1a/d5/6b1ad5c10e932a267d41ac054bed8109.jpg'},
-            {id:3,name:"Sveta",url:'https://i.pinimg.com/originals/6b/1a/d5/6b1ad5c10e932a267d41ac054bed8109.jpg'},
-            {id:4,name:"Sveta",url:'https://i.pinimg.com/originals/6b/1a/d5/6b1ad5c10e932a267d41ac054bed8109.jpg'},
-            {id:5,name:"Sveta",url:'https://i.pinimg.com/originals/6b/1a/d5/6b1ad5c10e932a267d41ac054bed8109.jpg'},
-            {id:6,name:"Rita",url:'https://get.wallhere.com/photo/women-model-blonde-long-hair-swimming-pool-bikini-swimwear-clothing-Renee-Somerfield-307880.jpg'},
-            {id:7,name:"Margarita",url:'https://www.hawtcelebs.com/wp-content/uploads/2014/11/MICHELLE-LEWIN-in-Bikini-on-the-Beach-in-Miami-7.jpg'},
+    friendsPage: {
+        friends: [
+            {id: 1, name: 'Sveta', url: 'https://i.pinimg.com/originals/6b/1a/d5/6b1ad5c10e932a267d41ac054bed8109.jpg'},
+            {id: 2, name: 'Sveta', url: 'https://i.pinimg.com/originals/6b/1a/d5/6b1ad5c10e932a267d41ac054bed8109.jpg'},
+            {id: 3, name: 'Sveta', url: 'https://i.pinimg.com/originals/6b/1a/d5/6b1ad5c10e932a267d41ac054bed8109.jpg'},
+            {id: 4, name: 'Sveta', url: 'https://i.pinimg.com/originals/6b/1a/d5/6b1ad5c10e932a267d41ac054bed8109.jpg'},
+            {id: 5, name: 'Sveta', url: 'https://i.pinimg.com/originals/6b/1a/d5/6b1ad5c10e932a267d41ac054bed8109.jpg'},
+            {
+                id: 6,
+                name: 'Rita',
+                url: 'https://get.wallhere.com/photo/women-model-blonde-long-hair-swimming-pool-bikini-swimwear-clothing-Renee-Somerfield-307880.jpg'
+            },
+            {
+                id: 7,
+                name: 'Margarita',
+                url: 'https://www.hawtcelebs.com/wp-content/uploads/2014/11/MICHELLE-LEWIN-in-Bikini-on-the-Beach-in-Miami-7.jpg'
+            },
         ]
     }
 }
 
-export const addPost = (message:string) => {
+export const addPost = (message: string) => {
     const posts = state.profilePage.posts;
 
-    const newPost:PostData = {id:posts.length + 1,message,likes:0}
+    const newPost: PostData = {id: posts.length + 1, message, likes: 0}
     posts.push(newPost);
     state.profilePage.newPostText = '';
     rerenderEntireTree(state);
 }
-export const changePostValue = (message:string) => {
-    console.log(message)
+export const changePostValue = (message: string) => {
     console.log(state.profilePage.newPostText)
     state.profilePage.newPostText = message;
+    rerenderEntireTree(state);
+}
+
+export const addMessage = (message: string) => {
+    const messages = state.dialogsPage.messages;
+    const newMessage: MessageItemPropsType = {id: messages.length + 1, message}
+    messages.push(newMessage);
+    state.dialogsPage.newDialogText = '';
+    rerenderEntireTree(state);
+}
+export const changeDialogValue = (message: string) => {
+    state.dialogsPage.newDialogText = message;
     rerenderEntireTree(state);
 }

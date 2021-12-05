@@ -11,12 +11,14 @@ import {StateType} from './redux/state';
 export type AppPropsType = {
     state: StateType
     addPost: (message: string) => void
-    changePostValue :(message:string) => void
+    changePostValue: (message: string) => void
+    changeDialogValue: (message: string) => void
+    addMessage: (message: string) => void
 }
 
-const App: React.FC<AppPropsType> = ({state: {profilePage, dialogsPage, friendsPage},addPost,changePostValue}) => {
+const App: React.FC<AppPropsType> = ({state: {profilePage, dialogsPage, friendsPage}, addPost, changePostValue, changeDialogValue, addMessage}) => {
     const {posts} = profilePage;
-    const {dialogs, messages} = dialogsPage;
+    const {dialogs, messages, newDialogText} = dialogsPage;
 
     return (
         <div className="App">
@@ -24,8 +26,11 @@ const App: React.FC<AppPropsType> = ({state: {profilePage, dialogsPage, friendsP
             <NavBar friendsPage={friendsPage}/>
             <div className={'app-content'}>
                 <Routes>
-                    <Route path={'/profile'} element={<Profile profilePage={profilePage} addPost={addPost} changePostValue={changePostValue}/>}/>
-                    <Route path={'/dialogs/*'} element={<Dialogs messages={messages} dialogs={dialogs}/>}/>
+                    <Route path={'/profile'} element={<Profile profilePage={profilePage} addPost={addPost}
+                                                               changePostValue={changePostValue}/>}/>
+                    <Route path={'/dialogs/*'}
+                           element={<Dialogs messages={messages} dialogs={dialogs} changeDialogValue={changeDialogValue}
+                                             newDialogText={newDialogText} addMessage={addMessage}/>}/>
                 </Routes>
             </div>
             <Footer/>
