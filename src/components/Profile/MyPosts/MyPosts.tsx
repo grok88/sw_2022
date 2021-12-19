@@ -2,6 +2,7 @@ import React, {ChangeEvent} from 'react';
 
 import styles from './myPosts.module.css';
 import Post from './Post/Post';
+import {ActionsType, addNewPostTextAC, addPostAC} from '../../../redux/state';
 
 export type PostData = {
     id: number
@@ -13,21 +14,20 @@ export type MyPostsPropsType = {
         posts: PostData[]
         newPostText: string
     }
-    addPost: (message: string) => void
-    changePostValue: (message: string) => void
+    dispatch: (actions: ActionsType) => void
 }
 
 
-const MyPosts: React.FC<MyPostsPropsType> = ({profilePage, addPost, changePostValue}) => {
+const MyPosts: React.FC<MyPostsPropsType> = ({profilePage, dispatch}) => {
     const {newPostText, posts} = profilePage;
     // const newPostElement = useRef<HTMLTextAreaElement | null>(null);
 
     const handler = {
         addPostHandler: () => {
-            if (newPostText) addPost(newPostText);
+            if (newPostText) dispatch(addPostAC());
         },
         changePostValueHandler: (e: ChangeEvent<HTMLTextAreaElement>) => {
-            changePostValue(e.target.value);
+            dispatch(addNewPostTextAC(e.target.value));
         }
     }
 

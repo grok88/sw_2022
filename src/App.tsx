@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import Profile from './components/Profile/Profile';
 import Footer from './components/Footer/Footer';
@@ -6,19 +6,20 @@ import Header from './components/Header/Header';
 import NavBar from './components/NavBar/NavBar';
 import Dialogs from './components/Dialogs/Dialogs';
 import {Route, Routes} from 'react-router-dom';
-import {StateType} from './redux/state';
+import {ActionsType, StateType} from './redux/state';
+import Select from './components/Select/Select';
 
 export type AppPropsType = {
     state: StateType
-    addPost: (message: string) => void
-    changePostValue: (message: string) => void
-    changeDialogValue: (message: string) => void
-    addMessage: (message: string) => void
+    dispatch: (actions: ActionsType) => void
 }
 
-const App: React.FC<AppPropsType> = ({state: {profilePage, dialogsPage, friendsPage}, addPost, changePostValue, changeDialogValue, addMessage}) => {
-    const {posts} = profilePage;
+const App: React.FC<AppPropsType> = ({state: {profilePage, dialogsPage, friendsPage}, dispatch}) => {
     const {dialogs, messages, newDialogText} = dialogsPage;
+
+    //custom select
+    const items = [{value: '1', title: 'Minsk'}, {value: '2', title: 'Glybokoe'}, {value: '3', title: 'Beshenkovichi'}];
+    const [value, setValue] = useState<string>('1');
 
     return (
         <div className="App">
@@ -26,11 +27,13 @@ const App: React.FC<AppPropsType> = ({state: {profilePage, dialogsPage, friendsP
             <NavBar friendsPage={friendsPage}/>
             <div className={'app-content'}>
                 <Routes>
-                    <Route path={'/profile'} element={<Profile profilePage={profilePage} addPost={addPost}
-                                                               changePostValue={changePostValue}/>}/>
+                    <Route path={'/profile'} element={<Profile profilePage={profilePage}
+                                                               dispatch={dispatch}/>}/>
                     <Route path={'/dialogs/*'}
-                           element={<Dialogs messages={messages} dialogs={dialogs} changeDialogValue={changeDialogValue}
-                                             newDialogText={newDialogText} addMessage={addMessage}/>}/>
+                           element={<Dialogs messages={messages} dialogs={dialogs} newDialogText={newDialogText}
+                                             dispatch={dispatch}/>}/>
+                    <Route path={'/select'}
+                           element={<Select value={value} onChange={setValue} items={items}/>}/>
                 </Routes>
             </div>
             <Footer/>
@@ -39,3 +42,4 @@ const App: React.FC<AppPropsType> = ({state: {profilePage, dialogsPage, friendsP
 }
 
 export default App;
+
