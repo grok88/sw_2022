@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>\
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,500,600,700,900" rel="stylesheet">
+    <style>
+        /*common*/
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-size: 13px;
+            font-family: "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
+        }
+
+
+        .content {
+            color: #333333;
+            padding: 0 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .table {
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        table, th, td {
+            vertical-align: middle;
+        }
+
+        th {
+            font-weight: 500;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 15px 20px;
+        }
+
+        .table th {
+            border-bottom: 1px solid #bbb;
+        }
+
+        .table td {
+            border-top: 1px solid #ddd;
+        }
+
+        .row {
+            width: 100%;
+        }
+
+        .upper-cell {
+            text-transform: uppercase;
+        }
+
+        /*title*/
+        caption {
+            text-align: left;
+            padding: 10px 0;
+            margin: 0 0 20px;
+            border-bottom: 1px solid #e5e5e5;
+            width: 100%;
+        }
+
+        .title {
+            font-size: 12px;
+            padding-bottom: 10px;
+            text-transform: uppercase;
+            color: #607D8B
+        }
+        .table-request .header{
+            border-bottom: none;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            background-color: #fff;
+            margin: 0;
+            font-size: 17px;
+        }
+        .table-request .title{
+            border-bottom: 1px solid #e5e5e5;
+            padding: 10px 0;
+            margin: 0 0 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="content" width="100%">
+    <table class="table table-request" style="border: none; margin-bottom: 20px;">
+        <caption class="header">Request</caption>
+        <thead>
+        <tr>
+            <th class="title">
+                EXAMPLE OF IMPORT XML
+            </th>
+        </tr>
+        </thead>
+    </table>
+    <table class="table ">
+        <caption class="title">Request details</caption>
+        <thead>
+        <tr class="row">
+            <th width="5%">No.</th>
+            <th>Field</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Possible Value(s)</th>
+            <th>Required</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1.</td>
+            <td class="upper-cell">channelid</td>
+            <td>Seller Account ID</td>
+            <td>Provided</td>
+            <td><strong>RwTrQ</strong></td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>1.</td>
+            <td class="upper-cell">channelid</td>
+            <td>Seller Account ID</td>
+            <td>Provided</td>
+            <td><strong>RwTrQ</strong></td>
+            <td>Yes</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

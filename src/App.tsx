@@ -4,18 +4,21 @@ import Profile from './components/Profile/Profile';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import NavBar from './components/NavBar/NavBar';
-import Dialogs from './components/Dialogs/Dialogs';
 import {Route, Routes} from 'react-router-dom';
-import {ActionsType, StateType} from './redux/state';
+import {StoreType} from './redux/store';
 import Select from './components/Select/Select';
+import UseReducer from './components/UseReducer/Select';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
 
 export type AppPropsType = {
-    state: StateType
-    dispatch: (actions: ActionsType) => void
+    // store: StoreType
 }
 
-const App: React.FC<AppPropsType> = ({state: {profilePage, dialogsPage, friendsPage}, dispatch}) => {
-    const {dialogs, messages, newDialogText} = dialogsPage;
+const App: React.FC<AppPropsType> = ({
+                                         // store
+}) => {
+    // let state = store.getState();
+    // const {dialogsReducer, friendsReducer, profileReducer} = state;
 
     //custom select
     const items = [{value: '1', title: 'Minsk'}, {value: '2', title: 'Glybokoe'}, {value: '3', title: 'Beshenkovichi'}];
@@ -24,16 +27,24 @@ const App: React.FC<AppPropsType> = ({state: {profilePage, dialogsPage, friendsP
     return (
         <div className="App">
             <Header/>
-            <NavBar friendsPage={friendsPage}/>
+            <NavBar
+                // friendsPage={friendsReducer}
+            />
             <div className={'app-content'}>
                 <Routes>
-                    <Route path={'/profile'} element={<Profile profilePage={profilePage}
-                                                               dispatch={dispatch}/>}/>
+                    <Route path={'/profile'} element={<Profile
+                        // profilePage={profileReducer}
+                        //                                        dispatch={store.dispatch}
+                    />}/>
                     <Route path={'/dialogs/*'}
-                           element={<Dialogs messages={messages} dialogs={dialogs} newDialogText={newDialogText}
-                                             dispatch={dispatch}/>}/>
+                           element={<DialogsContainer
+                               // dialogsPage={dialogsReducer}
+                               //                        dispatch={store.dispatch}
+                           />}/>
                     <Route path={'/select'}
                            element={<Select value={value} onChange={setValue} items={items}/>}/>
+                    <Route path={'/useReducer'}
+                           element={<UseReducer/>}/>
                 </Routes>
             </div>
             <Footer/>

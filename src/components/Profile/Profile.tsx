@@ -1,23 +1,27 @@
 import React from 'react';
 // @ts-ignore
-import styles from './profile.module.css';
-import MyPosts, {PostData} from './MyPosts/MyPosts';
+import {PostData} from './MyPosts/MyPosts';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
-import {ActionsType} from '../../redux/state';
+import {ActionsType} from '../../redux/store';
+import MyPostsContainer from './MyPosts/MyPostsContainer';
 
 export type ProfilePropsType = {
-    profilePage:{
-        posts: PostData[]
-        newPostText:string
-    }
-    dispatch: (actions:ActionsType) => void
+    // profilePage: {
+    //     posts: PostData[]
+    //     newPostText: string
+    // }
+    // dispatch: (actions: ActionsType) => void
 }
 
-const Profile:React.FC<ProfilePropsType> = ({profilePage,dispatch}) => {
+const Profile: React.FC<ProfilePropsType> = ({
+                                                 // profilePage, dispatch
+}) => {
     return (
         <main style={{outline: '1px solid red'}}>
             <ProfileInfo/>
-            <MyPosts profilePage={profilePage} dispatch={dispatch}/>
+            <MyPostsContainer
+                // profilePage={profilePage} dispatch={dispatch}
+            />
         </main>
     );
 };
