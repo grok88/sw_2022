@@ -4,7 +4,7 @@ import {MessageItemPropsType} from '../components/Dialogs/Message/Message';
 import {ActionsType} from './store';
 
 const ADD_MESSAGE = '/SW/ADD-MESSAGE';
-const ADD_NEW_MESSAGE_TEXT = 'ADD-NEW-MESSAGE-TEXT';
+const ADD_NEW_MESSAGE_TEXT = '/SW/ADD-NEW-MESSAGE-TEXT';
 
 export  type DialogsStateType = {
     dialogs: DialogItemPropsType[]

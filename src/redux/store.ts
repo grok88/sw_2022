@@ -2,6 +2,7 @@ import {AddNewPostTextAC, AddPostAC, profileReducer} from './profile-reducer';
 import {AddMessageAC, AddNewMessageTextAC, dialogReducer} from './dialogs-reducer';
 import {combineReducers, createStore} from 'redux';
 import {friendsReducer} from './friends-reducer';
+import { usersReducer } from './users-reducer';
 
 
 // @ts-ignore
@@ -10,7 +11,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const reducers = combineReducers({
     profileReducer: profileReducer,
     dialogsReducer: dialogReducer,
-    friendsReducer: friendsReducer
+    friendsReducer: friendsReducer,
+    usersReducer: usersReducer
 })
 
 export const store = createStore(reducers, composeEnhancers());

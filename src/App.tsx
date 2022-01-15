@@ -9,6 +9,7 @@ import {StoreType} from './redux/store';
 import Select from './components/Select/Select';
 import UseReducer from './components/UseReducer/Select';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
+import UsersContainer from './components/Users/Users';
 
 export type AppPropsType = {
     // store: StoreType
@@ -32,19 +33,14 @@ const App: React.FC<AppPropsType> = ({
             />
             <div className={'app-content'}>
                 <Routes>
-                    <Route path={'/profile'} element={<Profile
-                        // profilePage={profileReducer}
-                        //                                        dispatch={store.dispatch}
-                    />}/>
+                    <Route path={'/profile'} element={<Profile/>}/>
                     <Route path={'/dialogs/*'}
-                           element={<DialogsContainer
-                               // dialogsPage={dialogsReducer}
-                               //                        dispatch={store.dispatch}
-                           />}/>
+                           element={<DialogsContainer />}/>
                     <Route path={'/select'}
                            element={<Select value={value} onChange={setValue} items={items}/>}/>
                     <Route path={'/useReducer'}
                            element={<UseReducer/>}/>
+                           <Route path={'/users'} element={<UsersContainer/>}/>
                 </Routes>
             </div>
             <Footer/>
