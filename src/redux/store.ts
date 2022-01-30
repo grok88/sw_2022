@@ -12,7 +12,7 @@ const reducers = combineReducers({
     profileReducer: profileReducer,
     dialogsReducer: dialogReducer,
     friendsReducer: friendsReducer,
-    usersReducer: usersReducer
+    usersPage: usersReducer
 })
 
 export const store = createStore(reducers, composeEnhancers());

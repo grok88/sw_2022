@@ -1,0 +1,19 @@
+.paginationBox{
+    display: flex;
+    overflow: scroll;
+}
+
+.paginationBox .selectedPage {
+    font-weight: 700;
+    background-color: goldenrod;
+    color: seagreen;
+    border: 2px solid seagreen;
+}
+
+.paginationCell {
+    padding: 5px 10px;
+    display: inline-block;
+    border: 1px solid black;
+    marginRight: 5px;
+    cursor: pointer;
+}

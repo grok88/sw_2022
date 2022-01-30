@@ -5,21 +5,17 @@ import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import NavBar from './components/NavBar/NavBar';
 import {Route, Routes} from 'react-router-dom';
-import {StoreType} from './redux/store';
 import Select from './components/Select/Select';
 import UseReducer from './components/UseReducer/Select';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
-import UsersContainer from './components/Users/Users';
+// import UsersContainer from './components/Users/Users';
+import UsersContainer from './components/Users/UsersClass';
 
 export type AppPropsType = {
     // store: StoreType
 }
 
-const App: React.FC<AppPropsType> = ({
-                                         // store
-}) => {
-    // let state = store.getState();
-    // const {dialogsReducer, friendsReducer, profileReducer} = state;
+const App: React.FC<AppPropsType> = ({}) => {
 
     //custom select
     const items = [{value: '1', title: 'Minsk'}, {value: '2', title: 'Glybokoe'}, {value: '3', title: 'Beshenkovichi'}];
@@ -35,12 +31,13 @@ const App: React.FC<AppPropsType> = ({
                 <Routes>
                     <Route path={'/profile'} element={<Profile/>}/>
                     <Route path={'/dialogs/*'}
-                           element={<DialogsContainer />}/>
+                           element={<DialogsContainer/>}/>
                     <Route path={'/select'}
                            element={<Select value={value} onChange={setValue} items={items}/>}/>
                     <Route path={'/useReducer'}
                            element={<UseReducer/>}/>
-                           <Route path={'/users'} element={<UsersContainer/>}/>
+                    {/*<Route path={'/users'} element={<UsersContainer/>}/>*/}
+                    <Route path={'/users'} element={<UsersContainer/>}/>
                 </Routes>
             </div>
             <Footer/>

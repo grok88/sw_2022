@@ -14,7 +14,7 @@ export type DialogsProps = {
 }
 
 const Dialogs: React.FC<DialogsProps> = ({dialogsPage: {messages, dialogs, newDialogText}, addMessage, addNewMessageText}) => {
-
+    console.log('')
     const handler = {
         addMessage: () => {
             addMessage();
