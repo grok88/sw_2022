@@ -6,14 +6,15 @@ import {
     setCurrPageAC,
     setTotalUserCountAC,
     setUsersAC,
+    toggleIsFetchingAC,
     unFollowAC,
     UsersStateType,
     UserType
 } from '../../redux/users-reducer';
 import {Dispatch} from 'redux';
 import {instance} from '../../API/api';
-import styles from './users.module.css'
 import Users from './Users';
+import {Preloader} from "../../common/Preloader/Preloader";
 
 type UsersProps = MapDispatchToProps & MapStateToPropsType;
 //     {
@@ -28,12 +29,13 @@ type UsersProps = MapDispatchToProps & MapStateToPropsType;
 class UsersClass extends Component<UsersProps, {}> {
 
     componentDidMount() {
+        this.props.toggleIsFetching(true);
         try {
             const response = instance.get(`/users?page=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`)
             response.then(res => res.data).then(res => {
-                console.log(res)
                 this.props.setUsers(res.items);
                 this.props.setTotalUserCount(res.totalCount);
+                this.props.toggleIsFetching(false);
             });
         } catch (e) {
             console.log(e)
@@ -45,11 +47,13 @@ class UsersClass extends Component<UsersProps, {}> {
     }
 
     setCurrentPage = (currPage: number) => {
+        this.props.toggleIsFetching(true);
         this.props.setCurrPage(currPage);
         try {
             const response = instance.get(`/users?page=${currPage}&count=${this.props.usersPage.pageSize}`)
             response.then(res => res.data).then(res => {
                 this.props.setUsers(res.items)
+                this.props.toggleIsFetching(false);
             });
         } catch (e) {
             console.log(e)
@@ -57,7 +61,12 @@ class UsersClass extends Component<UsersProps, {}> {
     }
 
 
-    render({usersPage: {totalCount, pageSize, currentPage}, follow, unFollow} = this.props) {
+    render({usersPage: {totalCount, pageSize, currentPage,isFetching}, follow, unFollow} = this.props) {
+        if(isFetching){
+            return <div>
+                <Preloader/>
+            </div>
+        }
         return <Users usersPage={this.props.usersPage} unFollow={unFollow} follow={follow}
                       setCurrentPage={this.setCurrentPage}/>
     }
@@ -78,6 +87,7 @@ type MapDispatchToProps = {
     setUsers: (users: UserType[]) => void
     setCurrPage: (currPage: number) => void
     setTotalUserCount: (totalCount: number) => void
+    toggleIsFetching: (isFetching: boolean) => void
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
@@ -96,6 +106,9 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
         },
         setTotalUserCount: (totalCount: number) => {
             dispatch(setTotalUserCountAC(totalCount));
+        },
+        toggleIsFetching: (isFetching: boolean) => {
+            dispatch(toggleIsFetchingAC(isFetching));
         }
     }
 }

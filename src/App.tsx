@@ -3,7 +3,6 @@ import './App.css';
 import Profile from './components/Profile/Profile';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
-import NavBar from './components/NavBar/NavBar';
 import {Route, Routes} from 'react-router-dom';
 import Select from './components/Select/Select';
 import UseReducer from './components/UseReducer/Select';
@@ -24,9 +23,7 @@ const App: React.FC<AppPropsType> = ({}) => {
     return (
         <div className="App">
             <Header/>
-            <NavBar
-                // friendsPage={friendsReducer}
-            />
+            {/*<NavBar/>*/}
             <div className={'app-content'}>
                 <Routes>
                     <Route path={'/profile'} element={<Profile/>}/>
