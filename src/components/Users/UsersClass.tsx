@@ -61,14 +61,19 @@ class UsersClass extends Component<UsersProps, {}> {
     }
 
 
-    render({usersPage: {totalCount, pageSize, currentPage,isFetching}, follow, unFollow} = this.props) {
-        if(isFetching){
-            return <div>
+    render({usersPage: {totalCount, pageSize, currentPage, isFetching}, follow, unFollow} = this.props) {
+        // if(isFetching){
+        //     return <div>
+        //         <Preloader/>
+        //     </div>
+        // }
+        return <>
+            {isFetching && <div className={'preloaderWrapper fullSize'}>
                 <Preloader/>
-            </div>
-        }
-        return <Users usersPage={this.props.usersPage} unFollow={unFollow} follow={follow}
-                      setCurrentPage={this.setCurrentPage}/>
+            </div>}
+            <Users usersPage={this.props.usersPage} unFollow={unFollow} follow={follow}
+                   setCurrentPage={this.setCurrentPage}/>
+        </>
     }
 }
 

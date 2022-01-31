@@ -1,8 +1,10 @@
+
 .preloaderContainer {
     display: flex;
     margin-top: 5px;
     align-items: center;
     justify-content: center;
+    height: 100%;
 }
 
 .preloaderSpan {

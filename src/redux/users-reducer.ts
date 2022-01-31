@@ -44,7 +44,7 @@ const initialUserState: UsersStateType = {
     items: [],
     error: null,
     totalCount: 21,
-    pageSize: 5,
+    pageSize: 3,
     currentPage: 1,
     isFetching: false
 }
