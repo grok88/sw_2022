@@ -5,12 +5,12 @@ const SET_CURR_PAGE = '/SW/SET-CURR-PAGE';
 const SET_TOTAL_USER_COUNT = '/SW/SET-TOTAL-USER-COUNT';
 const TOGGLE_IS_FETCHING = '/SW/TOGGLE-IS-FETCHING';
 
-export type FollowAC = ReturnType<typeof followAC>;
-export type UnFollowAC = ReturnType<typeof unFollowAC>;
-export type SetUsersAC = ReturnType<typeof setUsersAC>;
-export type SetCurrPageAC = ReturnType<typeof setCurrPageAC>;
-export type SetTotalUserCountAC = ReturnType<typeof setTotalUserCountAC>;
-export type ToggleIsFetchingAC = ReturnType<typeof toggleIsFetchingAC>;
+export type FollowAC = ReturnType<typeof follow>;
+export type UnFollowAC = ReturnType<typeof unFollow>;
+export type SetUsersAC = ReturnType<typeof setUsers>;
+export type SetCurrPageAC = ReturnType<typeof setCurrPage>;
+export type SetTotalUserCountAC = ReturnType<typeof setTotalUserCount>;
+export type ToggleIsFetchingAC = ReturnType<typeof toggleIsFetching>;
 
 export type UsersActionsType =
     FollowAC
@@ -87,7 +87,7 @@ export const usersReducer = (state: UsersStateType = initialUserState, action: U
     }
 }
 
-export const followAC = (userId: number) => {
+export const follow = (userId: number) => {
     return {
         type: FOLLOW,
         payload: {
@@ -95,7 +95,7 @@ export const followAC = (userId: number) => {
         }
     } as const
 }
-export const unFollowAC = (userId: number) => {
+export const unFollow = (userId: number) => {
     return {
         type: UNFOLLOW,
         payload: {
@@ -103,7 +103,7 @@ export const unFollowAC = (userId: number) => {
         }
     } as const
 }
-export const setUsersAC = (users: UserType[]) => {
+export const setUsers = (users: UserType[]) => {
     return {
         type: SET_USERS,
         payload: {
@@ -111,7 +111,7 @@ export const setUsersAC = (users: UserType[]) => {
         }
     } as const
 }
-export const setCurrPageAC = (currPage: number) => {
+export const setCurrPage = (currPage: number) => {
     return {
         type: SET_CURR_PAGE,
         payload: {
@@ -119,7 +119,7 @@ export const setCurrPageAC = (currPage: number) => {
         }
     } as const
 }
-export const setTotalUserCountAC = (totalCount: number) => {
+export const setTotalUserCount = (totalCount: number) => {
     return {
         type: SET_TOTAL_USER_COUNT,
         payload: {
@@ -127,7 +127,7 @@ export const setTotalUserCountAC = (totalCount: number) => {
         }
     } as const
 }
-export const toggleIsFetchingAC = (isFetching: boolean) => {
+export const toggleIsFetching = (isFetching: boolean) => {
     return {
         type: TOGGLE_IS_FETCHING,
         payload: {

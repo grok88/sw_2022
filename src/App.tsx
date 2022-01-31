@@ -14,8 +14,7 @@ export type AppPropsType = {
     // store: StoreType
 }
 
-const App: React.FC<AppPropsType> = ({}) => {
-
+const App: React.FC<AppPropsType> = (props) => {
     //custom select
     const items = [{value: '1', title: 'Minsk'}, {value: '2', title: 'Glybokoe'}, {value: '3', title: 'Beshenkovichi'}];
     const [value, setValue] = useState<string>('1');

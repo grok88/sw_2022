@@ -6,14 +6,8 @@ import styles from './NavBar.module.css';
 import {store} from '../../redux/store';
 
 
-export  type NavBarPropsType = {
-    // friendsPage: {
-    //     friends: Friend[];
-    // }
-}
-const NavBar: React.FC<NavBarPropsType> = ({
-                                               // friendsPage
-                                           }) => {
+export  type NavBarPropsType = {}
+const NavBar: React.FC<NavBarPropsType> = () => {
         const {friends} = store.getState().friendsReducer;
         // const {friends} = friendsPage;
 

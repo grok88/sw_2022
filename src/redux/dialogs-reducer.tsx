@@ -14,8 +14,8 @@ export  type DialogsStateType = {
 
 export type  DialogsActionsType = AddMessageAC | AddNewMessageTextAC;
 
-export type AddMessageAC = ReturnType<typeof addMessageAC>;
-export type AddNewMessageTextAC = ReturnType<typeof addNewMessageTextAC>;
+export type AddMessageAC = ReturnType<typeof addMessage>;
+export type AddNewMessageTextAC = ReturnType<typeof addNewMessageText>;
 
 const initialState: DialogsStateType = {
     dialogs: [
@@ -58,12 +58,12 @@ export const dialogReducer = (state: DialogsStateType = initialState, action: Ac
 }
 
 //ACTIONS
-export const addMessageAC = () => {
+export const addMessage = () => {
     return {
         type: ADD_MESSAGE
     } as const;
 }
-export const addNewMessageTextAC = (message: string) => {
+export const addNewMessageText = (message: string) => {
     return {
         type: ADD_NEW_MESSAGE_TEXT,
         message

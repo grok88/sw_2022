@@ -2,29 +2,20 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {AppRootType} from '../../redux/store';
 import {
-    followAC,
-    setCurrPageAC,
-    setTotalUserCountAC,
-    setUsersAC,
-    toggleIsFetchingAC,
-    unFollowAC,
+    follow,
+    setCurrPage,
+    setTotalUserCount,
+    setUsers,
+    toggleIsFetching,
+    unFollow,
     UsersStateType,
     UserType
 } from '../../redux/users-reducer';
-import {Dispatch} from 'redux';
 import {instance} from '../../API/api';
 import Users from './Users';
 import {Preloader} from "../../common/Preloader/Preloader";
 
 type UsersProps = MapDispatchToProps & MapStateToPropsType;
-//     {
-//     usersPage: UsersStateType
-//     follow: (userId: number) => void
-//     unFollow: (userId: number) => void
-//     setUsers: (users: UserType[]) => void
-//     setCurrPage: (currPage: number) => void
-// }
-
 
 class UsersClass extends Component<UsersProps, {}> {
 
@@ -95,27 +86,36 @@ type MapDispatchToProps = {
     toggleIsFetching: (isFetching: boolean) => void
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
-    return {
-        follow: (userId: number) => {
-            dispatch(followAC(userId));
-        },
-        unFollow: (userId: number) => {
-            dispatch(unFollowAC(userId));
-        },
-        setUsers: (users: UserType[]) => {
-            dispatch(setUsersAC(users));
-        },
-        setCurrPage: (currPage: number) => {
-            dispatch(setCurrPageAC(currPage));
-        },
-        setTotalUserCount: (totalCount: number) => {
-            dispatch(setTotalUserCountAC(totalCount));
-        },
-        toggleIsFetching: (isFetching: boolean) => {
-            dispatch(toggleIsFetchingAC(isFetching));
-        }
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(UsersClass);
+// const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
+//     return {
+//         follow: (userId: number) => {
+//             dispatch(followAC(userId));
+//         },
+//         unFollow: (userId: number) => {
+//             dispatch(unFollowAC(userId));
+//         },
+//         setUsers: (users: UserType[]) => {
+//             dispatch(setUsersAC(users));
+//         },
+//         setCurrPage: (currPage: number) => {
+//             dispatch(setCurrPageAC(currPage));
+//         },
+//         setTotalUserCount: (totalCount: number) => {
+//             dispatch(setTotalUserCountAC(totalCount));
+//         },
+//         toggleIsFetching: (isFetching: boolean) => {
+//             dispatch(toggleIsFetchingAC(isFetching));
+//         }
+//     }
+// }
+// export default connect<MapStateToPropsType, MapDispatchToProps, {}, AppRootType>(mapStateToProps, mapDispatchToProps)(UsersClass);
+
+export default connect<MapStateToPropsType, MapDispatchToProps, {}, AppRootType>(mapStateToProps, {
+    follow,
+    unFollow,
+    setUsers,
+    setCurrPage,
+    setTotalUserCount,
+    toggleIsFetching
+})(UsersClass);
 
