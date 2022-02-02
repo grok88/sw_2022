@@ -1,19 +1,43 @@
 //CONSTS
 import {PostData} from '../components/Profile/MyPosts/MyPosts';
-import {ActionsType} from './store';
 
 const ADD_POST = '/SW/ADD-POST';
+const SET_PROFILE = '/SW/SET-PROFILE';
 const ADD_NEW_POST_TEXT = '/SW/ADD-NEW-POST-TEXT';
+
+export type ProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    aboutMe:string
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+        twitter: string
+        website: string
+        youtube: string
+        mainLink: string
+    }
+    photos: {
+        small: string | null
+        large: string | null
+    }
+}
 
 export  type ProfileStateType = {
     posts: PostData[]
-    newPostText: string
+    newPostText: string,
+    profile: null | ProfileType
 }
 
-export type  ProfileActionsType = AddPostAC | AddNewPostTextAC;
+export type  ProfileActionsType = AddPostAC | AddNewPostTextAC | setProfileAC;
 
-export type AddPostAC = ReturnType<typeof addPostAC>;
-export type AddNewPostTextAC = ReturnType<typeof addNewPostTextAC>;
+export type AddPostAC = ReturnType<typeof addPost>;
+export type AddNewPostTextAC = ReturnType<typeof addNewPostText>;
+export type setProfileAC = ReturnType<typeof setProfile>;
 
 const initialState: ProfileStateType = {
     posts: [
@@ -21,9 +45,10 @@ const initialState: ProfileStateType = {
         {id: 2, message: `I'm good`, likes: 7},
         {id: 3, message: 'How old are you?', likes: 12},
     ],
-    newPostText: ''
+    newPostText: '',
+    profile: null
 }
-export const profileReducer = (state: ProfileStateType = initialState, action: ActionsType): ProfileStateType => {
+export const profileReducer = (state: ProfileStateType = initialState, action: ProfileActionsType): ProfileStateType => {
     switch (action.type) {
         case ADD_POST :
             const posts = state.posts;
@@ -35,11 +60,16 @@ export const profileReducer = (state: ProfileStateType = initialState, action: A
                 newPostText: ''
             }
         case ADD_NEW_POST_TEXT:
-            state.newPostText = action.message;
+            state.newPostText = action.payload.message;
             return {
                 ...state,
-                newPostText: action.message
+                newPostText: action.payload.message
             };
+        case SET_PROFILE:
+            return {
+                ...state,
+                profile: action.payload.profile
+            }
         default:
             return state;
     }
@@ -47,15 +77,25 @@ export const profileReducer = (state: ProfileStateType = initialState, action: A
 
 
 //ACTIONS
-export const addPostAC = () => {
+export const addPost = () => {
     return {
         type: ADD_POST
     } as const;
 }
 
-export const addNewPostTextAC = (message: string) => {
+export const addNewPostText = (message: string) => {
     return {
         type: ADD_NEW_POST_TEXT,
-        message
+        payload: {
+            message
+        }
+    } as const;
+}
+export const setProfile = (profile: ProfileType) => {
+    return {
+        type: SET_PROFILE,
+        payload: {
+            profile
+        }
     } as const;
 }

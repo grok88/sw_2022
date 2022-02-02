@@ -1,3 +1,13 @@
 .profileInfo{
 
 }
+
+.profileUserInfo{
+    background-color: seagreen;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+.profileUserImg{
+    margin-right: 10px;
+}

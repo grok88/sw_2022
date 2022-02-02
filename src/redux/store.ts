@@ -9,7 +9,7 @@ import { usersReducer } from './users-reducer';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const reducers = combineReducers({
-    profileReducer: profileReducer,
+    profilePage: profileReducer,
     dialogsReducer: dialogReducer,
     friendsReducer: friendsReducer,
     usersPage: usersReducer

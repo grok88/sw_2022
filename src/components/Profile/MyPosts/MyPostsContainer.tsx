@@ -1,8 +1,7 @@
-import {addNewPostTextAC, addPostAC, ProfileStateType} from '../../../redux/profile-reducer';
+import {addNewPostText, addPost, ProfileStateType} from '../../../redux/profile-reducer';
 import MyPosts from './MyPosts';
 import {connect} from 'react-redux';
 import {AppRootType} from '../../../redux/store';
-import {Dispatch} from 'redux';
 
 export type PostData = {
     id: number
@@ -66,17 +65,11 @@ type MapDispatchToPropsType = {
 
 const mapStateToProps = (state: AppRootType): MapStateToPropsType => {
     return {
-        profilePage: state.profileReducer
+        profilePage: state.profilePage
     }
 }
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-    return {
-        addPost: () => {
-            dispatch(addPostAC());
-        },
-        addNewPostText: (value: string) => {
-            dispatch(addNewPostTextAC(value));
-        }
-    }
-}
-export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppRootType>(mapStateToProps, mapDispatchToProps)(MyPosts);
+
+export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppRootType>(mapStateToProps, {
+    addPost,
+    addNewPostText
+})(MyPosts);

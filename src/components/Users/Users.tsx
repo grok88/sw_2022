@@ -1,4 +1,5 @@
 import React from 'react';
+import {NavLink} from 'react-router-dom';
 import {UsersStateType} from '../../redux/users-reducer';
 import styles from './users.module.css';
 
@@ -41,9 +42,11 @@ const Users: React.FC<UsersProps> = ({usersPage: {totalCount, currentPage, pageS
                 return <div key={user.id}>
                     <div>
                         <div>
-                            <img
-                                src={user.photos.small ? user.photos.small as string | undefined : 'https://avatars.mds.yandex.net/i?id=6800826dcb47da02afe319b4465e1a0f-5282880-images-thumbs&n=13&exp=1'}
-                                alt="" width={100} height={100}/>
+                            <NavLink to={`/profile/${user.id}`}>
+                                <img
+                                    src={user.photos.small ? user.photos.small as string | undefined : 'https://avatars.mds.yandex.net/i?id=6800826dcb47da02afe319b4465e1a0f-5282880-images-thumbs&n=13&exp=1'}
+                                    alt="" width={100} height={100}/>
+                            </NavLink>
                         </div>
                         <button
                             onClick={user.followed ? () => unFollow(user.id) : () => follow(user.id)}>{user.followed ? 'UNFOLLOW' : 'FOLLOW'}</button>

@@ -2,6 +2,7 @@ import React, {ChangeEvent} from 'react';
 
 import styles from './myPosts.module.css';
 import Post from './Post/Post';
+import {ProfileStateType} from '../../../redux/profile-reducer';
 
 export type PostData = {
     id: number
@@ -9,17 +10,15 @@ export type PostData = {
     likes: number
 }
 export type MyPostsPropsType = {
-    profilePage: {
-        posts: PostData[]
-        newPostText: string
-    }
+    profilePage: ProfileStateType
     addPost: () => void
     addNewPostText: (value: string) => void
 }
 
 
 const MyPosts: React.FC<MyPostsPropsType> = ({profilePage, addNewPostText, addPost}) => {
-    const {newPostText, posts} = profilePage;
+    const {newPostText, posts,profile} = profilePage;
+    console.log(profile)
     // const newPostElement = useRef<HTMLTextAreaElement | null>(null);
 
     const handler = {
