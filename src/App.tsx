@@ -26,7 +26,9 @@ const App: React.FC<AppPropsType> = (props) => {
             <NavBar/>
             <div className={'app-content'}>
                 <Routes>
-                    <Route path={'/profile/*'} element={<ProfileContainer/>}/>
+                    <Route path={'profile'} element={<ProfileContainer/>}>
+                        <Route path={':id'} element={<ProfileContainer/>}/>
+                    </Route>
                     <Route path={'/dialogs/*'}
                            element={<DialogsContainer/>}/>
                     <Route path={'/select'}

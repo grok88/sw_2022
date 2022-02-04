@@ -23,7 +23,7 @@ const NavBar: React.FC<NavBarPropsType> = () => {
                         <li><NavLink to='/users'>Users</NavLink></li>
                     </ul>
                 </nav>
-                <Friends friends={friends}/>
+                {/*<Friends friends={friends}/>*/}
             </div>
         </>
     }

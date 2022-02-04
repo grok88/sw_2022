@@ -7,14 +7,15 @@ import {AppRootType} from '../../redux/store';
 import {ProfileStateType, ProfileType, setProfile} from '../../redux/profile-reducer';
 import {toggleIsFetching} from '../../redux/users-reducer';
 import {instance} from '../../API/api';
+import {useParams} from 'react-router-dom';
 
 export type ProfilePropsType = MapDispatchToProps & MapStateToProps;
 
-class ProfileContainer extends React.Component<ProfilePropsType, {}> {
+class ProfileContainer extends React.Component<ProfilePropsType & {id:string}, {}> {
     componentDidMount() {
         this.props.toggleIsFetching(true);
         try {
-            const response = instance.get(`/profile/${22232}`);
+            const response = instance.get(`/profile/${this.props.id}`);
             response.then(res => res.data)
                 .then(res => {
                     this.props.setProfile(res);
@@ -26,7 +27,7 @@ class ProfileContainer extends React.Component<ProfilePropsType, {}> {
     }
 
     render({profilePage} = this.props) {
-        if (!profilePage.profile){
+        if (!profilePage.profile) {
             return null;
         }
         return (
@@ -51,7 +52,19 @@ type MapDispatchToProps = {
     setProfile: (profile: ProfileType) => void
 }
 
+const WithRouterContainer = (Component: typeof React.Component) => {
+    let RouterComponent = (props: ProfilePropsType) => {
+        const {id} = useParams()
+        return <Component {...props} id={id}/>;
+    }
+    return RouterComponent;
+}
+
 export default connect<MapStateToProps, MapDispatchToProps, {}, AppRootType>(mapStateToProps, {
     toggleIsFetching,
     setProfile
-})(ProfileContainer);
+})(WithRouterContainer(ProfileContainer));
+
+
+
+
