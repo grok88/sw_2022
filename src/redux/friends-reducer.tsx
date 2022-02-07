@@ -1,55 +1,42 @@
 //CONSTS
-import {Friend} from '../components/NavBar/Friends/Friends';
+const SET_FRIENDS = 'SW/SET-FRIENDS';
 
-
-export  type FriensStateType = {
-    friends: Friend[];
+export type Friend = {
+    followed: boolean
+    id: number
+    name: string
+    photos: { small: null | string, large: null | string }
+    status: null | string
+    uniqueUrlName: null | string
 }
 
-export type FriendsActionsType = { type: string };
-
-
-const initialState: FriensStateType = {
-    friends: [
-        {
-            id: 1,
-            name: 'Sveta',
-            url: 'https://i.pinimg.com/originals/6b/1a/d5/6b1ad5c10e932a267d41ac054bed8109.jpg'
-        },
-        {
-            id: 2,
-            name: 'Sveta',
-            url: 'https://i.pinimg.com/originals/6b/1a/d5/6b1ad5c10e932a267d41ac054bed8109.jpg'
-        },
-        {
-            id: 3,
-            name: 'Sveta',
-            url: 'https://i.pinimg.com/originals/6b/1a/d5/6b1ad5c10e932a267d41ac054bed8109.jpg'
-        },
-        {
-            id: 4,
-            name: 'Sveta',
-            url: 'https://i.pinimg.com/originals/6b/1a/d5/6b1ad5c10e932a267d41ac054bed8109.jpg'
-        },
-        {
-            id: 5,
-            name: 'Sveta',
-            url: 'https://i.pinimg.com/originals/6b/1a/d5/6b1ad5c10e932a267d41ac054bed8109.jpg'
-        },
-        {
-            id: 6,
-            name: 'Rita',
-            url: 'https://get.wallhere.com/photo/women-model-blonde-long-hair-swimming-pool-bikini-swimwear-clothing-Renee-Somerfield-307880.jpg'
-        },
-        {
-            id: 7,
-            name: 'Margarita',
-            url: 'https://www.hawtcelebs.com/wp-content/uploads/2014/11/MICHELLE-LEWIN-in-Bikini-on-the-Beach-in-Miami-7.jpg'
-        },
-    ]
+export type FriendsType = {
+    error: null | string
+    items: Friend[]
+    totalCount: number
 }
-export const friendsReducer = (state: FriensStateType = initialState, action: FriendsActionsType): FriensStateType => {
+
+export  type FriendsStateType = {
+    friends: null | FriendsType
+}
+
+//actions Type
+export type SetFriendsAC = ReturnType<typeof setFriends>;
+
+export type FriendsActionsType = SetFriendsAC;
+
+
+const initialState: FriendsStateType = {
+    friends: null
+}
+
+export const friendsReducer = (state: FriendsStateType = initialState, action: FriendsActionsType): FriendsStateType => {
     switch (action.type) {
+        case SET_FRIENDS:
+            return {
+                ...state,
+                friends: action.payload.friends
+            }
         default:
             return state;
     }
@@ -57,3 +44,11 @@ export const friendsReducer = (state: FriensStateType = initialState, action: Fr
 
 
 //ACTIONS
+export const setFriends = (friends: FriendsType) => {
+    return {
+        type: SET_FRIENDS,
+        payload: {
+            friends
+        }
+    } as const;
+}

@@ -11,7 +11,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const reducers = combineReducers({
     profilePage: profileReducer,
     dialogsReducer: dialogReducer,
-    friendsReducer: friendsReducer,
+    friendsPage: friendsReducer,
     usersPage: usersReducer
 })
 

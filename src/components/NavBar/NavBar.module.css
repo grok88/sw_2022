@@ -1,3 +1,66 @@
 .sideBar {
     grid-area: sidebar;
+    background-color: goldenrod;
+    padding: 5px;
+}
+
+.mainNav{
+    /*top:50%;*/
+    /*position: absolute;*/
+    /*left: 50%;*/
+    /*transform: translate(-50%, -50%);*/
+    border-radius: 5px;
+    box-shadow: -2px 0 15px rgba(0, 0, 0, .8);
+
+}
+.mainNav li{
+    border-bottom: 1px solid rgba(0, 0, 0, .8);
+    border-left: 1px solid rgba(0, 0, 0, .8);
+    border-right: 1px solid rgba(0, 0, 0, .8);
+}
+.text{
+    position: relative;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    display: flex;
+    padding: 25px 20px;
+    cursor: pointer;
+
+}
+.text::before,.text::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #2980b9;
+    transform-origin: right;
+    transition: transform 400ms ease;
+    z-index: -1;
+    transform: scaleX(0);
+}
+.text:hover::before,.text:hover::after{
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+.navContainer{
+    top: 70%;
+}
+
+.navContainer .text{
+    padding: 15px 30px;
+}
+
+.navContainer .text::before, .navContainer .text::after{
+    transform: scaleY(0);
+    transform-origin: bottom;
+}
+
+.navContainer .text:hover::before, .navContainer .text:hover::after{
+    transform: scaleY(1);
+    transform-origin: top;
 }

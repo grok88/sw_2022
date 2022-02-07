@@ -1,3 +1,7 @@
 .header {
     grid-area: header;
+    background-color: goldenrod;
+    /*background-image:  url('https://l-stat.livejournal.net/img/reskining/2011/desert/horizon-bg.jpg');*/
+    /*background-size: initial;*/
+    /*background-repeat: no-repeat;*/
 }

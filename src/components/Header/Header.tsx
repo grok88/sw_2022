@@ -4,8 +4,8 @@ import styles from './Header.module.css';
 
 const Header = () => {
     return (
-        <header style={{outline:'1px solid red'}} className={styles.header}>
-            Header
+        <header  className={styles.header}>
+            <img src="https://l-stat.livejournal.net/img/reskining/2011/desert/horizon-bg.jpg" alt="" width={'100%'} height={'100%'}/>
         </header>
     );
 };

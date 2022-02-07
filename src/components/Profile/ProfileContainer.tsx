@@ -8,14 +8,19 @@ import {ProfileStateType, ProfileType, setProfile} from '../../redux/profile-red
 import {toggleIsFetching} from '../../redux/users-reducer';
 import {instance} from '../../API/api';
 import {useParams} from 'react-router-dom';
+import styles from './profileContainer.module.css'
 
 export type ProfilePropsType = MapDispatchToProps & MapStateToProps;
 
 class ProfileContainer extends React.Component<ProfilePropsType & {id:string}, {}> {
     componentDidMount() {
         this.props.toggleIsFetching(true);
+        let id = this.props.id;
+        if(!this.props.id){
+            id = '8886';
+        }
         try {
-            const response = instance.get(`/profile/${this.props.id}`);
+            const response = instance.get(`/profile/${id}`);
             response.then(res => res.data)
                 .then(res => {
                     this.props.setProfile(res);
@@ -31,7 +36,7 @@ class ProfileContainer extends React.Component<ProfilePropsType & {id:string}, {
             return null;
         }
         return (
-            <main style={{outline: '1px solid red'}}>
+            <main className={styles.profileContainer}>
                 <ProfileInfo profilePage={profilePage}/>
                 <MyPostsContainer/>
             </main>

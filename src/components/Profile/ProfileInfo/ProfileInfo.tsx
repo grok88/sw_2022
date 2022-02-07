@@ -10,7 +10,7 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profilePage}) => {
     // const {photos, lookingForAJob, userId, lookingForAJobDescription, fullName, aboutMe} = profilePage.profile as ProfileType
     return <div className={styles.profileInfo}>
         <div>
-            <img src="https://i.imgur.com/3aXPJ2f.png" alt=""/>
+            <img src="https://i.imgur.com/3aXPJ2f.png" alt="" width={'100%'}  height={'100%'}/>
         </div>
         <div className={styles.profileUserInfo}>
             <div className={styles.profileUserImg}>
