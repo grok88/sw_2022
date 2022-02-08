@@ -1,7 +1,29 @@
 .header {
     grid-area: header;
     background-color: goldenrod;
-    /*background-image:  url('https://l-stat.livejournal.net/img/reskining/2011/desert/horizon-bg.jpg');*/
+    background-image: url('https://l-stat.livejournal.net/img/reskining/2011/desert/horizon-bg.jpg');
+    background-size: 100% 100%;
     /*background-size: initial;*/
     /*background-repeat: no-repeat;*/
+}
+
+.loginBlock {
+    height: 100%;
+    float: right;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*outline:19px solid black !important;*/
+}
+
+.loginBtn {
+    padding: 10px 15px;
+    background-color: seagreen;
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #fff;
+    cursor: pointer;
 }

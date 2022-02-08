@@ -10,6 +10,7 @@ import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersClass';
 import NavBar from './components/NavBar/NavBar';
 import ProfileContainer from './components/Profile/ProfileContainer';
+import HeaderContainer from "./components/Header/Header";
 
 export type AppPropsType = {
     // store: StoreType
@@ -22,7 +23,7 @@ const App: React.FC<AppPropsType> = (props) => {
 
     return (
         <div className="App">
-            <Header/>
+            <HeaderContainer/>
             <NavBar/>
             <div className={'app-content'}>
                 <Routes>

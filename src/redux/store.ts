@@ -2,7 +2,8 @@ import {AddNewPostTextAC, AddPostAC, profileReducer} from './profile-reducer';
 import {AddMessageAC, AddNewMessageTextAC, dialogReducer} from './dialogs-reducer';
 import {combineReducers, createStore} from 'redux';
 import {friendsReducer} from './friends-reducer';
-import { usersReducer } from './users-reducer';
+import {usersReducer} from './users-reducer';
+import {authReducer} from "./auth-reducer";
 
 
 // @ts-ignore
@@ -12,7 +13,8 @@ const reducers = combineReducers({
     profilePage: profileReducer,
     dialogsReducer: dialogReducer,
     friendsPage: friendsReducer,
-    usersPage: usersReducer
+    usersPage: usersReducer,
+    auth: authReducer
 })
 
 export const store = createStore(reducers, composeEnhancers());
@@ -78,36 +80,6 @@ export type StoreType = {
 //                     id: 1,
 //                     name: 'Sveta',
 //                     url: 'https://i.pinimg.com/originals/6b/1a/d5/6b1ad5c10e932a267d41ac054bed8109.jpg'
-//                 },
-//                 {
-//                     id: 2,
-//                     name: 'Sveta',
-//                     url: 'https://i.pinimg.com/originals/6b/1a/d5/6b1ad5c10e932a267d41ac054bed8109.jpg'
-//                 },
-//                 {
-//                     id: 3,
-//                     name: 'Sveta',
-//                     url: 'https://i.pinimg.com/originals/6b/1a/d5/6b1ad5c10e932a267d41ac054bed8109.jpg'
-//                 },
-//                 {
-//                     id: 4,
-//                     name: 'Sveta',
-//                     url: 'https://i.pinimg.com/originals/6b/1a/d5/6b1ad5c10e932a267d41ac054bed8109.jpg'
-//                 },
-//                 {
-//                     id: 5,
-//                     name: 'Sveta',
-//                     url: 'https://i.pinimg.com/originals/6b/1a/d5/6b1ad5c10e932a267d41ac054bed8109.jpg'
-//                 },
-//                 {
-//                     id: 6,
-//                     name: 'Rita',
-//                     url: 'https://get.wallhere.com/photo/women-model-blonde-long-hair-swimming-pool-bikini-swimwear-clothing-Renee-Somerfield-307880.jpg'
-//                 },
-//                 {
-//                     id: 7,
-//                     name: 'Margarita',
-//                     url: 'https://www.hawtcelebs.com/wp-content/uploads/2014/11/MICHELLE-LEWIN-in-Bikini-on-the-Beach-in-Miami-7.jpg'
 //                 },
 //             ]
 //         }
