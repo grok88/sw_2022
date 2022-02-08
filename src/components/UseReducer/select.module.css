@@ -22,3 +22,10 @@
 .selected {
     background-color: #7777ea;
 }
+
+
+.rectangle{
+    width: 200px;
+    height: 100px;
+    background: crimson;
+}

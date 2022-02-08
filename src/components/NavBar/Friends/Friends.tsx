@@ -19,6 +19,7 @@ const Friends: React.FC<FriendsPropsType> = React.memo(() => {
         instance.get('users?friend=true')
             .then(res => res.data)
             .then(data => {
+                console.log(data)
                 dispatch(setFriends(data));
             });
 
