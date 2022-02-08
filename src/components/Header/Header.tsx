@@ -18,9 +18,9 @@ const Header: React.FC<HeaderPropsType> = ({auth: {data, isAuth, profile}}) => {
             <div className={styles.loginBlock}>
                 {isAuth
                     ? <div className={styles.authBlock}>
-                        <img
-                            src={profile && profile.photos.small ? profile.photos.small as string | undefined : 'https://avatars.mds.yandex.net/i?id=6800826dcb47da02afe319b4465e1a0f-5282880-images-thumbs&n=13&exp=1'}
-                            alt="" width={80} height={80}/>
+                        {/*<img*/}
+                        {/*    src={profile && profile.photos.small ? profile.photos.small as string | undefined : 'https://avatars.mds.yandex.net/i?id=6800826dcb47da02afe319b4465e1a0f-5282880-images-thumbs&n=13&exp=1'}*/}
+                        {/*    alt="" width={80} height={80}/>*/}
                         <span>{data?.login}</span>
                     </div>
                     : <div className={styles.redirectBlock}>
@@ -40,16 +40,16 @@ class HeaderContainer extends React.Component<MapStateToProps & MapDispatchToPro
             instance.get('/auth/me').then(res => res.data).then(data => {
                 if (data.resultCode === 0) {
                     this.props.setUserAuth(data);
-                    try {
-                        const response = instance.get(`/profile/${this.props.auth.data?.id}`);
-                        response.then(res => res.data)
-                            .then(res => {
-                                this.props.setAuthProfile(res);
-                                // this.props.toggleIsFetching(false);
-                            })
-                    } catch (e) {
-                        console.log(e)
-                    }
+                    // try {
+                    //     const response = instance.get(`/profile/${this.props.auth.data?.id}`);
+                    //     response.then(res => res.data)
+                    //         .then(res => {
+                    //             this.props.setAuthProfile(res);
+                    //             // this.props.toggleIsFetching(false);
+                    //         })
+                    // } catch (e) {
+                    //     console.log(e)
+                    // }
                 }
             })
         } catch (e) {

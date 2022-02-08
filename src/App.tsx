@@ -31,6 +31,8 @@ const App: React.FC<AppPropsType> = (props) => {
                     </Route>
                     <Route path={'/dialogs/*'}
                            element={<DialogsContainer/>}/>
+                           <Route path={'/settings'}
+                           element={<h2>Page is not ready! See you later!</h2>}/>
                     <Route path={'/select'}
                            element={<Select value={value} onChange={setValue} items={items}/>}/>
                     <Route path={'/useReducer'}

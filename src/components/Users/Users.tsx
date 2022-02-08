@@ -2,6 +2,7 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import {UsersStateType} from '../../redux/users-reducer';
 import styles from './users.module.css';
+import {instance} from '../../API/api';
 
 
 type UsersProps = {
@@ -17,6 +18,33 @@ const Users: React.FC<UsersProps> = ({usersPage: {totalCount, currentPage, pageS
 
     for (let i = 1; i <= pagesCount; i++) {
         pagesCountArr.push(i)
+    }
+
+    const unFollowHandler = (userId: number) => {
+        try {
+            instance.delete(`/follow/${userId}`).then(res => res.data)
+                .then(data => {
+                    console.log(data)
+                    if (data.resultCode === 0) {
+                        unFollow(userId);
+                    }
+                })
+
+        } catch (e) {}
+
+    }
+
+    const FollowHandler = (userId: number) => {
+        try {
+            instance.post(`/follow/${userId}`).then(res => res.data)
+                .then(data => {
+                    console.log(data)
+                    if (data.resultCode === 0) {
+                        follow(userId)
+                    }
+                })
+
+        } catch (e) {}
     }
 
     return <div>
@@ -49,7 +77,7 @@ const Users: React.FC<UsersProps> = ({usersPage: {totalCount, currentPage, pageS
                             </NavLink>
                         </div>
                         <button
-                            onClick={user.followed ? () => unFollow(user.id) : () => follow(user.id)}>{user.followed ? 'UNFOLLOW' : 'FOLLOW'}</button>
+                            onClick={user.followed ? () => unFollowHandler(user.id) : () => FollowHandler(user.id)}>{user.followed ? 'UNFOLLOW' : 'FOLLOW'}</button>
                     </div>
                     <div>
                         <div><b>name</b> : {user.name}</div>

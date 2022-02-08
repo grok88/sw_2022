@@ -168,7 +168,7 @@ const UseReducer = () => {
             end = new Date().getTime();
         }
         setWidth(ref.current.clientWidth)
-    }, []);
+    }, [ref]);
 
     return <div>
         <div className={styles.rectangle} ref={ref}></div>
