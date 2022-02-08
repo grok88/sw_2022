@@ -17,9 +17,7 @@ export type MyPostsPropsType = {
 
 
 const MyPosts: React.FC<MyPostsPropsType> = ({profilePage, addNewPostText, addPost}) => {
-    const {newPostText, posts,profile} = profilePage;
-    console.log(profile)
-    // const newPostElement = useRef<HTMLTextAreaElement | null>(null);
+    const {newPostText, posts} = profilePage;
 
     const handler = {
         addPostHandler: () => {

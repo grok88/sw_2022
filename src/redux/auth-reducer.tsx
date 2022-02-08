@@ -1,7 +1,12 @@
-const SET_USER_AUTH = 'SET_USER_AUTH';
+import {ProfileType} from './profile-reducer';
+
+const SET_USER_AUTH = 'SW/SET_USER_AUTH';
+const SET_AUTH_PROFILE = 'SW/SET-AUTH_PROFILE';
 
 type SetUserAuthAC = ReturnType<typeof setUserAuth>;
-type AuthActionsType = SetUserAuthAC;
+type SetAuthProfileAC = ReturnType<typeof setAuthProfile>;
+
+type AuthActionsType = SetUserAuthAC | SetAuthProfileAC;
 
 export type AuthStateType = {
     data: null | {
@@ -12,7 +17,8 @@ export type AuthStateType = {
     resultCode: null | string
     messages: null | String[]
     fieldsErrors: null | String[],
-    isAuth:boolean
+    isAuth: boolean
+    profile: null | ProfileType
 }
 
 const initialState: AuthStateType = {
@@ -20,7 +26,8 @@ const initialState: AuthStateType = {
     messages: null,
     data: null,
     fieldsErrors: null,
-    isAuth:false
+    isAuth: false,
+    profile: null
 }
 
 export const authReducer = (state: AuthStateType = initialState, action: AuthActionsType) => {
@@ -29,7 +36,12 @@ export const authReducer = (state: AuthStateType = initialState, action: AuthAct
             return {
                 ...state,
                 ...action.payload.data,
-                isAuth:true
+                isAuth: true
+            }
+        case SET_AUTH_PROFILE:
+            return {
+                ...state,
+                profile: action.payload.profile
             }
         default:
             return state;
@@ -41,6 +53,14 @@ export const setUserAuth = (data: AuthStateType) => {
         type: SET_USER_AUTH,
         payload: {
             data
+        }
+    } as const;
+}
+export const setAuthProfile = (profile: ProfileType) => {
+    return {
+        type: SET_AUTH_PROFILE,
+        payload: {
+            profile
         }
     } as const;
 }

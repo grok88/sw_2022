@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
 import Footer from './components/Footer/Footer';
-import Header from './components/Header/Header';
+import HeaderContainer from './components/Header/Header';
 import {Route, Routes} from 'react-router-dom';
 import Select from './components/Select/Select';
 import UseReducer from './components/UseReducer/Select';
@@ -10,7 +10,6 @@ import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersClass';
 import NavBar from './components/NavBar/NavBar';
 import ProfileContainer from './components/Profile/ProfileContainer';
-import HeaderContainer from "./components/Header/Header";
 
 export type AppPropsType = {
     // store: StoreType

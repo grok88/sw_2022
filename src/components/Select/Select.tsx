@@ -73,9 +73,7 @@ const Select: React.FC<SelectPropsType> = ({value, items, onChange}) => {
                     </div>
                 }
             </div>
-
         </>
-
     );
 };
 

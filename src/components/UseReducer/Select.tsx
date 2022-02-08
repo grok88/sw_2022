@@ -1,25 +1,25 @@
 import React, {createRef, useEffect, useState} from 'react';
 import styles from './select.module.css'
 
-export type UseReducerType = {}
+// export type UseReducerType = {}
 
-type ActionType = {
-    type: string
-}
-type StateType = {
-    collapsed: boolean
-}
-const initialState: StateType = {
-    collapsed: false
-}
-const reducer = (state: StateType, action: ActionType): StateType => {
-    switch (action.type) {
-        case 'TOGGLE-COLLAPSED' :
-            return {...state, collapsed: !state.collapsed};
-        default:
-            return state;
-    }
-}
+// type ActionType = {
+//     type: string
+// }
+// type StateType = {
+//     collapsed: boolean
+// }
+// const initialState: StateType = {
+//     collapsed: false
+// }
+// const reducer = (state: StateType, action: ActionType): StateType => {
+//     switch (action.type) {
+//         case 'TOGGLE-COLLAPSED' :
+//             return {...state, collapsed: !state.collapsed};
+//         default:
+//             return state;
+//     }
+// }
 
 
 // return instance.put<ResponseType<{ photos: { small: string, large: string } }>>(`profile/photo`, formData, {
@@ -34,10 +34,10 @@ const reducer = (state: StateType, action: ActionType): StateType => {
 //     resultCode: number
 // }
 
-const generate = () => {
-    console.log('generate');
-    return 3333333;
-}
+// const generate = () => {
+//     console.log('generate');
+//     return 3333333;
+// }
 
 // const UseReducer: React.FC<UseReducerType> = (props) => {
 //         // const [collapsed, setCollapsed] = useState<boolean>(false);

@@ -22,7 +22,7 @@ const Friends: React.FC<FriendsPropsType> = React.memo(() => {
                 dispatch(setFriends(data));
             });
 
-    }, []);
+    }, [dispatch]);
 
     if (!friends) return null;
 

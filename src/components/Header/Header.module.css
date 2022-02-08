@@ -14,16 +14,28 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: seagreen;
     /*outline:19px solid black !important;*/
 }
 
 .loginBtn {
     padding: 10px 15px;
-    background-color: seagreen;
+    background-color: #daa520;
     border: none;
     font-weight: bold;
     font-size: 16px;
     text-transform: uppercase;
     color: #fff;
     cursor: pointer;
+}
+
+/*authBlock*/
+.authBlock {
+    font-weight: bold;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+}
+.authBlock img{
+    border-radius: 50%;
 }
