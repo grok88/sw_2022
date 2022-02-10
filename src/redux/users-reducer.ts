@@ -4,6 +4,7 @@ const SET_USERS = '/SW/SET-USERS';
 const SET_CURR_PAGE = '/SW/SET-CURR-PAGE';
 const SET_TOTAL_USER_COUNT = '/SW/SET-TOTAL-USER-COUNT';
 const TOGGLE_IS_FETCHING = '/SW/TOGGLE-IS-FETCHING';
+const TOGGLE_FOLLOWING_IS_FETCHING = '/SW/TOGGLE-FOLLOWING-IS-FETCHING';
 
 export type FollowAC = ReturnType<typeof follow>;
 export type UnFollowAC = ReturnType<typeof unFollow>;
@@ -11,6 +12,7 @@ export type SetUsersAC = ReturnType<typeof setUsers>;
 export type SetCurrPageAC = ReturnType<typeof setCurrPage>;
 export type SetTotalUserCountAC = ReturnType<typeof setTotalUserCount>;
 export type ToggleIsFetchingAC = ReturnType<typeof toggleIsFetching>;
+export type ToggleFollowingIsFetching = ReturnType<typeof toggleFollowingIsFetching>;
 
 export type UsersActionsType =
     FollowAC
@@ -18,7 +20,8 @@ export type UsersActionsType =
     | SetUsersAC
     | SetCurrPageAC
     | SetTotalUserCountAC
-    | ToggleIsFetchingAC;
+    | ToggleIsFetchingAC
+    | ToggleFollowingIsFetching;
 
 
 export type UserType = {
@@ -37,7 +40,8 @@ export type UsersStateType = {
     error: string | null
     pageSize: number
     currentPage: number,
-    isFetching: boolean
+    isFetching: boolean,
+    toggleFollowingIsFetch: number[]
 }
 
 const initialUserState: UsersStateType = {
@@ -46,7 +50,8 @@ const initialUserState: UsersStateType = {
     totalCount: 21,
     pageSize: 3,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    toggleFollowingIsFetch: []
 }
 
 export const usersReducer = (state: UsersStateType = initialUserState, action: UsersActionsType): UsersStateType => {
@@ -81,7 +86,13 @@ export const usersReducer = (state: UsersStateType = initialUserState, action: U
                 ...state,
                 isFetching: action.payload.isFetching
             }
-
+        case TOGGLE_FOLLOWING_IS_FETCHING:
+            return {
+                ...state,
+                toggleFollowingIsFetch: action.payload.isFetching
+                    ? [...state.toggleFollowingIsFetch, action.payload.userId]
+                    : state.toggleFollowingIsFetch.filter( id => id !== action.payload.userId)
+            }
         default:
             return state;
     }
@@ -132,6 +143,15 @@ export const toggleIsFetching = (isFetching: boolean) => {
         type: TOGGLE_IS_FETCHING,
         payload: {
             isFetching
+        }
+    } as const;
+}
+export const toggleFollowingIsFetching = (isFetching: boolean, userId: number) => {
+    return {
+        type: TOGGLE_FOLLOWING_IS_FETCHING,
+        payload: {
+            isFetching,
+            userId
         }
     } as const;
 }

@@ -10,9 +10,10 @@ type UsersProps = {
     follow: (userId: number) => void
     unFollow: (userId: number) => void
     setCurrentPage: (currPage: number) => void
+    toggleFollowingIsFetching: (isFetching: boolean, userId: number) => void
 }
 
-const Users: React.FC<UsersProps> = ({usersPage: {totalCount, currentPage, pageSize, items,}, unFollow, follow, setCurrentPage}) => {
+const Users: React.FC<UsersProps> = ({usersPage: {totalCount, currentPage, pageSize, items, toggleFollowingIsFetch}, unFollow, follow, setCurrentPage, toggleFollowingIsFetching}) => {
     let pagesCount = Math.ceil(totalCount / pageSize);
     let pagesCountArr: number[] = [];
 
@@ -21,6 +22,7 @@ const Users: React.FC<UsersProps> = ({usersPage: {totalCount, currentPage, pageS
     }
 
     const unFollowHandler = (userId: number) => {
+        toggleFollowingIsFetching(true, userId);
         try {
             instance.delete(`/follow/${userId}`).then(res => res.data)
                 .then(data => {
@@ -28,13 +30,16 @@ const Users: React.FC<UsersProps> = ({usersPage: {totalCount, currentPage, pageS
                     if (data.resultCode === 0) {
                         unFollow(userId);
                     }
+                    toggleFollowingIsFetching(false, userId);
                 })
 
-        } catch (e) {}
+        } catch (e) {
+        }
 
     }
 
     const FollowHandler = (userId: number) => {
+        toggleFollowingIsFetching(true, userId);
         try {
             instance.post(`/follow/${userId}`).then(res => res.data)
                 .then(data => {
@@ -42,9 +47,11 @@ const Users: React.FC<UsersProps> = ({usersPage: {totalCount, currentPage, pageS
                     if (data.resultCode === 0) {
                         follow(userId)
                     }
+                    toggleFollowingIsFetching(false, userId);
                 })
 
-        } catch (e) {}
+        } catch (e) {
+        }
     }
 
     return <div>
@@ -77,7 +84,9 @@ const Users: React.FC<UsersProps> = ({usersPage: {totalCount, currentPage, pageS
                             </NavLink>
                         </div>
                         <button
-                            onClick={user.followed ? () => unFollowHandler(user.id) : () => FollowHandler(user.id)}>{user.followed ? 'UNFOLLOW' : 'FOLLOW'}</button>
+                            onClick={user.followed ? () => unFollowHandler(user.id) : () => FollowHandler(user.id)}
+                            disabled={toggleFollowingIsFetch.some(id => id === user.id)}
+                        >{user.followed ? 'UNFOLLOW' : 'FOLLOW'}</button>
                     </div>
                     <div>
                         <div><b>name</b> : {user.name}</div>

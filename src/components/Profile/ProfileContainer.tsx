@@ -6,26 +6,24 @@ import {connect} from 'react-redux';
 import {AppRootType} from '../../redux/store';
 import {ProfileStateType, ProfileType, setProfile} from '../../redux/profile-reducer';
 import {toggleIsFetching} from '../../redux/users-reducer';
-import {instance} from '../../API/api';
+import {profileAPI} from '../../API/api';
 import {useParams} from 'react-router-dom';
 import styles from './profileContainer.module.css'
 
 export type ProfilePropsType = MapDispatchToProps & MapStateToProps;
 
-class ProfileContainer extends React.Component<ProfilePropsType & {id:string}, {}> {
+class ProfileContainer extends React.Component<ProfilePropsType & { id: string }, {}> {
     componentDidMount() {
         this.props.toggleIsFetching(true);
         let id = this.props.id;
-        if(!this.props.id){
+        if (!this.props.id) {
             id = '8886';
         }
         try {
-            const response = instance.get(`/profile/${id}`);
-            response.then(res => res.data)
-                .then(res => {
-                    this.props.setProfile(res);
-                    this.props.toggleIsFetching(false);
-                })
+            profileAPI.getProfile(id).then(res => {
+                this.props.setProfile(res);
+                this.props.toggleIsFetching(false);
+            })
         } catch (e) {
             console.log(e)
         }

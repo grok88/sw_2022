@@ -6,14 +6,15 @@ import {
     setCurrPage,
     setTotalUserCount,
     setUsers,
+    toggleFollowingIsFetching,
     toggleIsFetching,
     unFollow,
     UsersStateType,
     UserType
 } from '../../redux/users-reducer';
-import {instance} from '../../API/api';
+import {userAPI} from '../../API/api';
 import Users from './Users';
-import {Preloader} from "../../common/Preloader/Preloader";
+import {Preloader} from '../../common/Preloader/Preloader';
 
 type UsersProps = MapDispatchToProps & MapStateToPropsType;
 
@@ -22,12 +23,13 @@ class UsersClass extends Component<UsersProps, {}> {
     componentDidMount() {
         this.props.toggleIsFetching(true);
         try {
-            const response = instance.get(`/users?page=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`)
-            response.then(res => res.data).then(res => {
-                this.props.setUsers(res.items);
-                this.props.setTotalUserCount(res.totalCount);
-                this.props.toggleIsFetching(false);
-            });
+            userAPI.getUsers(this.props.usersPage.currentPage, this.props.usersPage.pageSize)
+                .then(res => {
+                    console.log(res)
+                    this.props.setUsers(res.items);
+                    this.props.setTotalUserCount(res.totalCount);
+                    this.props.toggleIsFetching(false);
+                });
         } catch (e) {
             console.log(e)
         }
@@ -41,18 +43,18 @@ class UsersClass extends Component<UsersProps, {}> {
         this.props.toggleIsFetching(true);
         this.props.setCurrPage(currPage);
         try {
-            const response = instance.get(`/users?page=${currPage}&count=${this.props.usersPage.pageSize}`)
-            response.then(res => res.data).then(res => {
-                this.props.setUsers(res.items)
-                this.props.toggleIsFetching(false);
-            });
+            userAPI.getUsers(currPage, this.props.usersPage.pageSize)
+                .then(res => {
+                    this.props.setUsers(res.items)
+                    this.props.toggleIsFetching(false);
+                });
         } catch (e) {
             console.log(e)
         }
     }
 
 
-    render({usersPage: {totalCount, pageSize, currentPage, isFetching}, follow, unFollow} = this.props) {
+    render({usersPage: {totalCount, pageSize, currentPage, isFetching}, follow, unFollow,toggleFollowingIsFetching} = this.props) {
         // if(isFetching){
         //     return <div>
         //         <Preloader/>
@@ -63,7 +65,7 @@ class UsersClass extends Component<UsersProps, {}> {
                 <Preloader/>
             </div>}
             <Users usersPage={this.props.usersPage} unFollow={unFollow} follow={follow}
-                   setCurrentPage={this.setCurrentPage}/>
+                   setCurrentPage={this.setCurrentPage} toggleFollowingIsFetching={toggleFollowingIsFetching}/>
         </>
     }
 }
@@ -84,6 +86,7 @@ type MapDispatchToProps = {
     setCurrPage: (currPage: number) => void
     setTotalUserCount: (totalCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
+    toggleFollowingIsFetching : (isFetching: boolean, userId: number) => void
 }
 
 // const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
@@ -116,6 +119,7 @@ export default connect<MapStateToPropsType, MapDispatchToProps, {}, AppRootType>
     setUsers,
     setCurrPage,
     setTotalUserCount,
-    toggleIsFetching
+    toggleIsFetching,
+    toggleFollowingIsFetching
 })(UsersClass);
 

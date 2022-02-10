@@ -7,7 +7,7 @@ import {authReducer} from "./auth-reducer";
 
 
 // @ts-ignore
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const reducers = combineReducers({
     profilePage: profileReducer,
@@ -17,7 +17,7 @@ const reducers = combineReducers({
     auth: authReducer
 })
 
-export const store = createStore(reducers, composeEnhancers());
+export const store = createStore(reducers, );
 
 
 export type AppRootType = ReturnType<typeof reducers>

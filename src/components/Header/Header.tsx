@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom';
 import styles from './Header.module.css';
 import {AppRootType} from '../../redux/store';
 import {AuthStateType, setAuthProfile, setUserAuth} from '../../redux/auth-reducer';
-import {instance} from '../../API/api';
+import {authAPI} from '../../API/api';
 import {ProfileType} from '../../redux/profile-reducer';
 
 type HeaderPropsType = {
@@ -18,9 +18,9 @@ const Header: React.FC<HeaderPropsType> = ({auth: {data, isAuth, profile}}) => {
             <div className={styles.loginBlock}>
                 {isAuth
                     ? <div className={styles.authBlock}>
-                        {/*<img*/}
-                        {/*    src={profile && profile.photos.small ? profile.photos.small as string | undefined : 'https://avatars.mds.yandex.net/i?id=6800826dcb47da02afe319b4465e1a0f-5282880-images-thumbs&n=13&exp=1'}*/}
-                        {/*    alt="" width={80} height={80}/>*/}
+                        <img
+                            src={profile && profile.photos.small ? profile.photos.small as string | undefined : 'https://avatars.mds.yandex.net/i?id=6800826dcb47da02afe319b4465e1a0f-5282880-images-thumbs&n=13&exp=1'}
+                            alt="" width={80} height={80}/>
                         <span>{data?.login}</span>
                     </div>
                     : <div className={styles.redirectBlock}>
@@ -37,7 +37,7 @@ const Header: React.FC<HeaderPropsType> = ({auth: {data, isAuth, profile}}) => {
 class HeaderContainer extends React.Component<MapStateToProps & MapDispatchToProps, any> {
     componentDidMount() {
         try {
-            instance.get('/auth/me').then(res => res.data).then(data => {
+             authAPI.getAuth().then(data => {
                 if (data.resultCode === 0) {
                     this.props.setUserAuth(data);
                     // try {
