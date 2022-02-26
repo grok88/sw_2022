@@ -1,7 +1,6 @@
 //CONSTS
 import {DialogItemPropsType} from '../components/Dialogs/DialogItem/DialogItem';
 import {MessageItemPropsType} from '../components/Dialogs/Message/Message';
-import {ActionsType} from './store';
 
 const ADD_MESSAGE = '/SW/ADD-MESSAGE';
 const ADD_NEW_MESSAGE_TEXT = '/SW/ADD-NEW-MESSAGE-TEXT';
@@ -33,7 +32,7 @@ const initialState: DialogsStateType = {
     ],
     newDialogText: ''
 }
-export const dialogReducer = (state: DialogsStateType = initialState, action: ActionsType): DialogsStateType => {
+export const dialogReducer = (state: DialogsStateType = initialState, action: DialogsActionsType): DialogsStateType => {
     switch (action.type) {
         case ADD_MESSAGE:
             const messages = state.messages;

@@ -1,5 +1,7 @@
 import React, {createContext} from 'react';
-import {StoreType} from './redux/store';
+// import {StoreType} from './redux/store';
+
+type StoreType = any;
 
 // interface IContextProps {
 //     state: AppRootType;

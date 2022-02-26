@@ -1,13 +1,13 @@
-import {AddNewPostTextAC, AddPostAC, profileReducer} from './profile-reducer';
-import {AddMessageAC, AddNewMessageTextAC, dialogReducer} from './dialogs-reducer';
-import {combineReducers, createStore} from 'redux';
-import {friendsReducer} from './friends-reducer';
-import {usersReducer} from './users-reducer';
-import {authReducer} from "./auth-reducer";
-
+import {ProfileActionsType, profileReducer} from './profile-reducer';
+import {dialogReducer, DialogsActionsType} from './dialogs-reducer';
+import {applyMiddleware, combineReducers, createStore} from 'redux';
+import thunkMiddleware from 'redux-thunk'
+import {FriendsActionsType, friendsReducer} from './friends-reducer';
+import {UsersActionsType, usersReducer} from './users-reducer';
+import {AuthActionsType, authReducer} from './auth-reducer';
 
 // @ts-ignore
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const reducers = combineReducers({
     profilePage: profileReducer,
@@ -17,36 +17,23 @@ const reducers = combineReducers({
     auth: authReducer
 })
 
-export const store = createStore(reducers, );
-
+export const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleware)));
 
 export type AppRootType = ReturnType<typeof reducers>
+export type SWActionType =
+    UsersActionsType
+    | AuthActionsType
+    | DialogsActionsType
+    | FriendsActionsType
+    | ProfileActionsType;
 
-// export type StateType = {
-//     profilePage: {
-//         posts: PostData[]
-//         newPostText: string
-//     }
-//     dialogsPage: {
-//         dialogs: DialogItemPropsType[]
-//         messages: MessageItemPropsType[]
-//         newDialogText: string
-//     }
-//     friendsPage: {
-//         friends: Friend[];
-//     }
+
+// export type  ActionsType = AddPostAC | AddNewPostTextAC | AddMessageAC | AddNewMessageTextAC;
+// export type StoreType = {
+//     getState: () => AppRootType
+//     subscribe: (observer: () => void) => void
+//     dispatch: (action: ActionsType) => void
 // }
-
-export type  ActionsType = AddPostAC | AddNewPostTextAC | AddMessageAC | AddNewMessageTextAC;
-
-export type StoreType = {
-    // state: AppRootType
-    // _subscriber: () => void
-    getState: () => AppRootType
-    subscribe: (observer: () => void) => void
-    dispatch: (action: ActionsType) => void
-}
-
 //STORE
 // export const store: StoreType = {
 //     _state: {

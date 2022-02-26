@@ -6,7 +6,7 @@ const SET_AUTH_PROFILE = 'SW/SET-AUTH_PROFILE';
 type SetUserAuthAC = ReturnType<typeof setUserAuth>;
 type SetAuthProfileAC = ReturnType<typeof setAuthProfile>;
 
-type AuthActionsType = SetUserAuthAC | SetAuthProfileAC;
+export type AuthActionsType = SetUserAuthAC | SetAuthProfileAC;
 
 export type AuthStateType = {
     data: null | {

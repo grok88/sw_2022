@@ -15,9 +15,23 @@ type GetUsersRespType = {
     totalCount: number
     error: string | null
 }
+
+type FollowType = {
+    resultCode: number
+    messages: string[]
+    fieldsErrors: string[]
+    data: {}
+}
+
 export const userAPI = {
     getUsers: (currentPage: number = 1, pageSize: number = 10) => {
-        return instance.get<GetUsersRespType>(`/users?page=${currentPage}&count=${pageSize}`).then(res => res.data)
+        return instance.get<GetUsersRespType>(`/users?page=${currentPage}&count=${pageSize}`).then(res => res.data);
+    },
+    follow: (userId: number) => {
+        return instance.post<FollowType>(`/follow/${userId}`).then(res => res.data);
+    } ,
+    unfollow: (userId: number) => {
+        return  instance.delete<FollowType>(`/follow/${userId}`).then(res => res.data)
     }
 }
 export const authAPI = {

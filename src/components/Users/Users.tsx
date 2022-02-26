@@ -2,7 +2,6 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import {UsersStateType} from '../../redux/users-reducer';
 import styles from './users.module.css';
-import {instance} from '../../API/api';
 
 
 type UsersProps = {
@@ -10,10 +9,10 @@ type UsersProps = {
     follow: (userId: number) => void
     unFollow: (userId: number) => void
     setCurrentPage: (currPage: number) => void
-    toggleFollowingIsFetching: (isFetching: boolean, userId: number) => void
+    // toggleFollowingIsFetching: (isFetching: boolean, userId: number) => void
 }
 
-const Users: React.FC<UsersProps> = ({usersPage: {totalCount, currentPage, pageSize, items, toggleFollowingIsFetch}, unFollow, follow, setCurrentPage, toggleFollowingIsFetching}) => {
+const Users: React.FC<UsersProps> = ({usersPage: {totalCount, currentPage, pageSize, items, toggleFollowingIsFetch}, unFollow, follow, setCurrentPage}) => {
     let pagesCount = Math.ceil(totalCount / pageSize);
     let pagesCountArr: number[] = [];
 
@@ -21,38 +20,13 @@ const Users: React.FC<UsersProps> = ({usersPage: {totalCount, currentPage, pageS
         pagesCountArr.push(i)
     }
 
-    const unFollowHandler = (userId: number) => {
-        toggleFollowingIsFetching(true, userId);
-        try {
-            instance.delete(`/follow/${userId}`).then(res => res.data)
-                .then(data => {
-                    console.log(data)
-                    if (data.resultCode === 0) {
-                        unFollow(userId);
-                    }
-                    toggleFollowingIsFetching(false, userId);
-                })
-
-        } catch (e) {
-        }
-
-    }
-
-    const FollowHandler = (userId: number) => {
-        toggleFollowingIsFetching(true, userId);
-        try {
-            instance.post(`/follow/${userId}`).then(res => res.data)
-                .then(data => {
-                    console.log(data)
-                    if (data.resultCode === 0) {
-                        follow(userId)
-                    }
-                    toggleFollowingIsFetching(false, userId);
-                })
-
-        } catch (e) {
-        }
-    }
+    // const unFollowHandler = (userId: number) => {
+    //     unFollow(userId);
+    // }
+    //
+    // const FollowHandler = (userId: number) => {
+    //     follow(userId)
+    // }
 
     return <div>
         <div className={styles.paginationBox} style={{marginBottom: '10px'}}>
@@ -84,7 +58,7 @@ const Users: React.FC<UsersProps> = ({usersPage: {totalCount, currentPage, pageS
                             </NavLink>
                         </div>
                         <button
-                            onClick={user.followed ? () => unFollowHandler(user.id) : () => FollowHandler(user.id)}
+                            onClick={user.followed ? () => unFollow(user.id) : () => follow(user.id)}
                             disabled={toggleFollowingIsFetch.some(id => id === user.id)}
                         >{user.followed ? 'UNFOLLOW' : 'FOLLOW'}</button>
                     </div>
