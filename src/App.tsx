@@ -10,6 +10,7 @@ import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersClass';
 import NavBar from './components/NavBar/NavBar';
 import ProfileContainer from './components/Profile/ProfileContainer';
+import { Login } from './components/Login/Login';
 
 export type AppPropsType = {
     // store: StoreType
@@ -26,12 +27,13 @@ const App: React.FC<AppPropsType> = (props) => {
             <NavBar/>
             <div className={'app-content'}>
                 <Routes>
+                    <Route path={'/'} element={<ProfileContainer/>}/>
                     <Route path={'profile'} element={<ProfileContainer/>}>
                         <Route path={':id'} element={<ProfileContainer/>}/>
                     </Route>
                     <Route path={'/dialogs/*'}
                            element={<DialogsContainer/>}/>
-                           <Route path={'/settings'}
+                    <Route path={'/settings'}
                            element={<h2>Page is not ready! See you later!</h2>}/>
                     <Route path={'/select'}
                            element={<Select value={value} onChange={setValue} items={items}/>}/>
@@ -39,6 +41,7 @@ const App: React.FC<AppPropsType> = (props) => {
                            element={<UseReducer/>}/>
                     {/*<Route path={'/users'} element={<UsersContainer/>}/>*/}
                     <Route path={'/users'} element={<UsersContainer/>}/>
+                    <Route path={'/login'} element={<Login/>}/>
                 </Routes>
             </div>
             <Footer/>

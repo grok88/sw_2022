@@ -3,9 +3,7 @@ import {connect} from 'react-redux';
 import {NavLink} from 'react-router-dom';
 import styles from './Header.module.css';
 import {AppRootType} from '../../redux/store';
-import {AuthStateType, setAuthProfile, setUserAuth} from '../../redux/auth-reducer';
-import {authAPI} from '../../API/api';
-import {ProfileType} from '../../redux/profile-reducer';
+import {authMe, AuthStateType} from '../../redux/auth-reducer';
 
 type HeaderPropsType = {
     auth: AuthStateType
@@ -36,25 +34,7 @@ const Header: React.FC<HeaderPropsType> = ({auth: {data, isAuth, profile}}) => {
 
 class HeaderContainer extends React.Component<MapStateToProps & MapDispatchToProps, any> {
     componentDidMount() {
-        try {
-             authAPI.getAuth().then(data => {
-                if (data.resultCode === 0) {
-                    this.props.setUserAuth(data);
-                    // try {
-                    //     const response = instance.get(`/profile/${this.props.auth.data?.id}`);
-                    //     response.then(res => res.data)
-                    //         .then(res => {
-                    //             this.props.setAuthProfile(res);
-                    //             // this.props.toggleIsFetching(false);
-                    //         })
-                    // } catch (e) {
-                    //     console.log(e)
-                    // }
-                }
-            })
-        } catch (e) {
-            console.log(e)
-        }
+        this.props.authMe();
     }
 
     render({auth} = this.props) {
@@ -66,8 +46,7 @@ type MapStateToProps = {
     auth: AuthStateType
 }
 type MapDispatchToProps = {
-    setUserAuth: (data: AuthStateType) => void
-    setAuthProfile: (profile: ProfileType) => void
+    authMe: () => void
 }
 const mapStateToProps = (state: AppRootType): MapStateToProps => {
     return {
@@ -75,8 +54,7 @@ const mapStateToProps = (state: AppRootType): MapStateToProps => {
     }
 }
 export default connect<MapStateToProps, MapDispatchToProps, {}, AppRootType>(mapStateToProps, {
-    setUserAuth,
-    setAuthProfile
+    authMe
 })(HeaderContainer);
 
 //setUserAuth = (data: AuthStateType) =>

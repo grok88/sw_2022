@@ -1,7 +1,9 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useEffect} from 'react';
 import styles from './dialogs.module.css';
 import {DialogItem, DialogItemPropsType} from './DialogItem/DialogItem';
 import {Message, MessageItemPropsType} from './Message/Message';
+import {AuthStateType} from '../../redux/auth-reducer';
+import {useNavigate} from 'react-router-dom';
 
 export type DialogsProps = {
     dialogsPage: {
@@ -11,9 +13,18 @@ export type DialogsProps = {
     }
     addMessage: () => void
     addNewMessageText: (value: string) => void
+    auth: AuthStateType
 }
 
-const Dialogs: React.FC<DialogsProps> = ({dialogsPage: {messages, dialogs, newDialogText}, addMessage, addNewMessageText}) => {
+const Dialogs: React.FC<DialogsProps> = ({dialogsPage: {messages, dialogs, newDialogText}, auth, addMessage, addNewMessageText}) => {
+
+    const isAuth = auth.isAuth;
+    let navigate = useNavigate();
+
+    useEffect(() => {
+        if (!isAuth) return navigate('/login');
+    }, [isAuth])
+
     const handler = {
         addMessage: () => {
             addMessage();
@@ -23,6 +34,7 @@ const Dialogs: React.FC<DialogsProps> = ({dialogsPage: {messages, dialogs, newDi
             addNewMessageText(value);
         }
     }
+
 
     return (
         <div className={styles.dialogs} style={{outline: '1px solid red'}}>

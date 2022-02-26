@@ -1,7 +1,7 @@
 import {ProfileActionsType, profileReducer} from './profile-reducer';
 import {dialogReducer, DialogsActionsType} from './dialogs-reducer';
 import {applyMiddleware, combineReducers, createStore} from 'redux';
-import thunkMiddleware from 'redux-thunk'
+import thunkMiddleware, {ThunkAction} from 'redux-thunk'
 import {FriendsActionsType, friendsReducer} from './friends-reducer';
 import {UsersActionsType, usersReducer} from './users-reducer';
 import {AuthActionsType, authReducer} from './auth-reducer';
@@ -27,6 +27,7 @@ export type SWActionType =
     | FriendsActionsType
     | ProfileActionsType;
 
+export type ThunkType = ThunkAction<void, AppRootType, unknown, SWActionType>;
 
 // export type  ActionsType = AddPostAC | AddNewPostTextAC | AddMessageAC | AddNewMessageTextAC;
 // export type StoreType = {

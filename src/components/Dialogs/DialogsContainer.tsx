@@ -2,50 +2,11 @@ import {addMessage, addNewMessageText, DialogsStateType} from '../../redux/dialo
 import Dialogs from './Dialogs';
 import {connect} from 'react-redux';
 import {AppRootType} from '../../redux/store';
-
-export type DialogsContainerProps = {
-    // dialogsPage: {
-    //     dialogs: DialogItemPropsType[]
-    //     messages: MessageItemPropsType[]
-    //     newDialogText: string
-    // }
-    // dispatch: (actions: ActionsType) => void
-}
-
-// const DialogsContainer: React.FC<DialogsContainerProps> = ({
-//                                                                // dialogsPage, dispatch
-//                                                            }) => {
-//
-//     // const handler = {
-//     //     addMessage: () => {
-//     //         dispatch(addMessageAC());
-//     //     },
-//     //     changeDialogValueHandler: (value: string) => {
-//     //         dispatch(addNewMessageTextAC(value));
-//     //     }
-//     // }
-//
-//     return <StoreContext.Consumer>
-//         {
-//             (store) => {
-//                 const dialogsPage = store.getState().dialogsReducer;
-//                 const handler = {
-//                     addMessage: () => {
-//                         store.dispatch(addMessageAC());
-//                     },
-//                     changeDialogValueHandler: (value: string) => {
-//                         store.dispatch(addNewMessageTextAC(value));
-//                     }
-//                 }
-//                 return <Dialogs addMessage={handler.addMessage} addNewMessageText={handler.changeDialogValueHandler}
-//                                 dialogsPage={dialogsPage}/>
-//             }
-//         }
-//     </StoreContext.Consumer>
-// };
+import {AuthStateType} from '../../redux/auth-reducer';
 
 type MapStateToPropsType = {
     dialogsPage: DialogsStateType
+    auth:AuthStateType
 }
 
 type MapDispatchToPropsType = {
@@ -54,8 +15,10 @@ type MapDispatchToPropsType = {
 }
 
 const mapStateToProps = (state: AppRootType): MapStateToPropsType => {
+    console.log(state)
     return {
-        dialogsPage: state.dialogsReducer
+        dialogsPage: state.dialogsReducer,
+        auth:state.auth
     }
 }
 

@@ -1,4 +1,7 @@
+import {ThunkDispatch} from 'redux-thunk';
 import {ProfileType} from './profile-reducer';
+import {AppRootType, SWActionType, ThunkType} from './store';
+import {authAPI, AuthType} from '../API/api';
 
 const SET_USER_AUTH = 'SW/SET_USER_AUTH';
 const SET_AUTH_PROFILE = 'SW/SET-AUTH_PROFILE';
@@ -8,12 +11,13 @@ type SetAuthProfileAC = ReturnType<typeof setAuthProfile>;
 
 export type AuthActionsType = SetUserAuthAC | SetAuthProfileAC;
 
+export type AuthData = {
+    id: number
+    email: string
+    login: string
+}
 export type AuthStateType = {
-    data: null | {
-        id: number
-        email: string
-        login: string
-    }
+    data: null | AuthData
     resultCode: null | string
     messages: null | String[]
     fieldsErrors: null | String[],
@@ -48,7 +52,7 @@ export const authReducer = (state: AuthStateType = initialState, action: AuthAct
     }
 }
 
-export const setUserAuth = (data: AuthStateType) => {
+export const setUserAuth = (data: AuthType) => {
     return {
         type: SET_USER_AUTH,
         payload: {
@@ -63,4 +67,29 @@ export const setAuthProfile = (profile: ProfileType) => {
             profile
         }
     } as const;
+}
+
+
+export const authMe = (): ThunkType => async (dispatch: ThunkDispatch<AppRootType, unknown, SWActionType>) => {
+
+    try {
+        const data = await authAPI.getAuth()
+        console.log(data)
+        if (data.resultCode === 0) {
+            dispatch(setUserAuth(data));
+            // try {
+            //     const response = instance.get(`/profile/${this.props.auth.data?.id}`);
+            //     response.then(res => res.data)
+            //         .then(res => {
+            //             this.props.setAuthProfile(res);
+            //             // this.props.toggleIsFetching(false);
+            //         })
+            // } catch (e) {
+            //     console.log(e)
+            // }
+        }
+
+    } catch (e) {
+
+    }
 }

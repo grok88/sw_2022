@@ -1,18 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {AppRootType} from '../../redux/store';
-import {
-    follow,
-    getUsers,
-    setCurrPage,
-    setTotalUserCount,
-    setUsers,
-    toggleFollowingIsFetching,
-    toggleIsFetching,
-    unFollow,
-    UsersStateType,
-    UserType
-} from '../../redux/users-reducer';
+import {follow, getUsers, setCurrPage, unFollow, UsersStateType} from '../../redux/users-reducer';
 import Users from './Users';
 import {Preloader} from '../../common/Preloader/Preloader';
 
@@ -34,7 +23,7 @@ class UsersClass extends Component<UsersProps, {}> {
     }
 
 
-    render({usersPage: {totalCount, pageSize, currentPage, isFetching}, follow, unFollow, } = this.props) {
+    render({usersPage: {totalCount, pageSize, currentPage, isFetching}, follow, unFollow,} = this.props) {
         // if(isFetching){
         //     return <div>
         //         <Preloader/>
@@ -45,7 +34,7 @@ class UsersClass extends Component<UsersProps, {}> {
                 <Preloader/>
             </div>}
             <Users usersPage={this.props.usersPage} unFollow={unFollow} follow={follow}
-                   setCurrentPage={this.setCurrentPage} />
+                   setCurrentPage={this.setCurrentPage}/>
         </>
     }
 }

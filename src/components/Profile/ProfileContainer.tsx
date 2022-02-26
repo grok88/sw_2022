@@ -4,35 +4,26 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 import {connect} from 'react-redux';
 import {AppRootType} from '../../redux/store';
-import {ProfileStateType, ProfileType, setProfile} from '../../redux/profile-reducer';
-import {toggleIsFetching} from '../../redux/users-reducer';
-import {profileAPI} from '../../API/api';
-import {useParams} from 'react-router-dom';
+import {getProfile, ProfileStateType} from '../../redux/profile-reducer';
+import {Navigate, useParams} from 'react-router-dom';
 import styles from './profileContainer.module.css'
 
 export type ProfilePropsType = MapDispatchToProps & MapStateToProps;
 
 class ProfileContainer extends React.Component<ProfilePropsType & { id: string }, {}> {
     componentDidMount() {
-        this.props.toggleIsFetching(true);
         let id = this.props.id;
         if (!this.props.id) {
             id = '8886';
         }
-        try {
-            profileAPI.getProfile(id).then(res => {
-                this.props.setProfile(res);
-                this.props.toggleIsFetching(false);
-            })
-        } catch (e) {
-            console.log(e)
-        }
+        this.props.getProfile(id);
     }
 
-    render({profilePage} = this.props) {
+    render({profilePage, isAuth} = this.props) {
         if (!profilePage.profile) {
             return null;
         }
+        if (!isAuth) return <Navigate to="/login"/>
         return (
             <main className={styles.profileContainer}>
                 <ProfileInfo profilePage={profilePage}/>
@@ -44,15 +35,17 @@ class ProfileContainer extends React.Component<ProfilePropsType & { id: string }
 
 type MapStateToProps = {
     profilePage: ProfileStateType
+    isAuth: boolean
 }
 const mapStateToProps = (state: AppRootType): MapStateToProps => {
     return {
-        profilePage: state.profilePage
+        profilePage: state.profilePage,
+        // @ts-ignore
+        isAuth: state.auth.isAuth
     }
 }
 type MapDispatchToProps = {
-    toggleIsFetching: (isFetching: boolean) => void
-    setProfile: (profile: ProfileType) => void
+    getProfile: (userId: string) => void
 }
 
 const WithRouterContainer = (Component: typeof React.Component) => {
@@ -64,8 +57,7 @@ const WithRouterContainer = (Component: typeof React.Component) => {
 }
 
 export default connect<MapStateToProps, MapDispatchToProps, {}, AppRootType>(mapStateToProps, {
-    toggleIsFetching,
-    setProfile
+    getProfile
 })(WithRouterContainer(ProfileContainer));
 
 

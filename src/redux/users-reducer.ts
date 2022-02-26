@@ -1,5 +1,5 @@
-import {ThunkAction, ThunkDispatch} from 'redux-thunk';
-import {AppRootType, SWActionType} from './store';
+import {ThunkDispatch} from 'redux-thunk';
+import {AppRootType, SWActionType, ThunkType} from './store';
 import {userAPI} from '../API/api';
 
 const FOLLOW = '/SW/FOLLOW';
@@ -161,9 +161,6 @@ export const toggleFollowingIsFetching = (isFetching: boolean, userId: number) =
 }
 
 //THUNKS
-
-export type ThunkType = ThunkAction<void, AppRootType, unknown, SWActionType>;
-
 export const getUsers = (currentPage: number, pageSize: number): ThunkType => {
     return async (dispatch: ThunkDispatch<AppRootType, unknown, SWActionType>) => {
         dispatch(toggleIsFetching(true));
@@ -189,6 +186,7 @@ export const follow = (userId: number): ThunkType => async (dispatch: ThunkDispa
     } catch (e) {
     }
 }
+
 export const unFollow = (userId: number): ThunkType => async (dispatch: ThunkDispatch<AppRootType, unknown, SWActionType>) => {
     dispatch(toggleFollowingIsFetching(true, userId));
     try {

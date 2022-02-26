@@ -3,7 +3,6 @@ import style from './friends.module.css'
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootType} from '../../../redux/store';
 import {FriendsType, setFriends} from '../../../redux/friends-reducer';
-import {instance} from '../../../API/api';
 import {NavLink} from 'react-router-dom';
 
 
@@ -16,12 +15,7 @@ const Friends: React.FC<FriendsPropsType> = React.memo(() => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        instance.get('users?friend=true')
-            .then(res => res.data)
-            .then(data => {
-                dispatch(setFriends(data));
-            });
-
+        dispatch(setFriends());
     }, [dispatch]);
 
     if (!friends) return null;

@@ -1,5 +1,9 @@
 //CONSTS
+import {ThunkDispatch} from 'redux-thunk';
 import {PostData} from '../components/Profile/MyPosts/MyPosts';
+import {AppRootType, SWActionType, ThunkType} from './store';
+import {profileAPI} from '../API/api';
+import {toggleIsFetching} from './users-reducer';
 
 const ADD_POST = '/SW/ADD-POST';
 const SET_PROFILE = '/SW/SET-PROFILE';
@@ -10,7 +14,7 @@ export type ProfileType = {
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
-    aboutMe:string
+    aboutMe: string
     contacts: {
         github: string
         vk: string
@@ -98,4 +102,18 @@ export const setProfile = (profile: ProfileType) => {
             profile
         }
     } as const;
+}
+
+
+export const getProfile = (userId: string): ThunkType => async (dispatch: ThunkDispatch<AppRootType, unknown, SWActionType>) => {
+    dispatch(toggleIsFetching(true));
+    try {
+        const res = await profileAPI.getProfile(userId)
+        console.log(res)
+        dispatch(setProfile(res));
+        dispatch(toggleIsFetching(false));
+
+    } catch (e) {
+        console.log(e)
+    }
 }

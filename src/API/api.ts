@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { AuthData } from '../redux/auth-reducer';
+import {ProfileType} from '../redux/profile-reducer';
 import {UserType} from '../redux/users-reducer';
 
 export const instance = axios.create({
@@ -29,18 +31,32 @@ export const userAPI = {
     },
     follow: (userId: number) => {
         return instance.post<FollowType>(`/follow/${userId}`).then(res => res.data);
-    } ,
+    },
     unfollow: (userId: number) => {
-        return  instance.delete<FollowType>(`/follow/${userId}`).then(res => res.data)
+        return instance.delete<FollowType>(`/follow/${userId}`).then(res => res.data)
     }
 }
+
+
+export type AuthType ={
+    messages:string[]
+    resultCode:number
+    data:AuthData
+    fieldsErrors: null | String[],
+}
+
 export const authAPI = {
     getAuth: () => {
-        return instance.get('/auth/me').then(res => res.data)
+        return instance.get<AuthType>('/auth/me').then(res => res.data)
     }
 }
 export const profileAPI = {
     getProfile: (id: string) => {
-        return instance.get(`/profile/${id}`).then(res => res.data)
+        return instance.get<ProfileType>(`/profile/${id}`).then(res => res.data)
+    }
+}
+export const friendsAPI = {
+    getFriendsList: () => {
+        return instance.get<GetUsersRespType>('users?friend=true').then(res => res.data)
     }
 }
