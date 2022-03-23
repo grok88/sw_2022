@@ -27,7 +27,7 @@ const App: React.FC<AppPropsType> = (props) => {
             <NavBar/>
             <div className={'app-content'}>
                 <Routes>
-                    <Route path={'/'} element={<ProfileContainer/>}/>
+                    <Route path={'/'} element={<ProfileContainer />}/>
                     <Route path={'profile'} element={<ProfileContainer/>}>
                         <Route path={':id'} element={<ProfileContainer/>}/>
                     </Route>

@@ -10,6 +10,7 @@ type HeaderPropsType = {
 }
 
 const Header: React.FC<HeaderPropsType> = ({auth: {data, isAuth, profile}}) => {
+
     return (
         <header className={styles.header}>
             {/*<img src="https://l-stat.livejournal.net/img/reskining/2011/desert/horizon-bg.jpg" alt="" width={'100%'} height={'100%'}/>*/}

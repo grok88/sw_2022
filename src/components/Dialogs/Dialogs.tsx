@@ -13,17 +13,16 @@ export type DialogsProps = {
     }
     addMessage: () => void
     addNewMessageText: (value: string) => void
-    auth: AuthStateType
 }
 
-const Dialogs: React.FC<DialogsProps> = ({dialogsPage: {messages, dialogs, newDialogText}, auth, addMessage, addNewMessageText}) => {
+const Dialogs: React.FC<DialogsProps> = ({dialogsPage: {messages, dialogs, newDialogText}, addMessage, addNewMessageText}) => {
+    // const isAuth = auth.isAuth;
+    // let navigate = useNavigate();
 
-    const isAuth = auth.isAuth;
-    let navigate = useNavigate();
-
-    useEffect(() => {
-        if (!isAuth) return navigate('/login');
-    }, [isAuth])
+    // useEffect(() => {
+    //     console.log(isAuth)
+    //     if (!isAuth) return navigate('/login');
+    // }, [isAuth])
 
     const handler = {
         addMessage: () => {

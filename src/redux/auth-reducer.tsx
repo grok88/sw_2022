@@ -3,13 +3,15 @@ import {ProfileType} from './profile-reducer';
 import {AppRootType, SWActionType, ThunkType} from './store';
 import {authAPI, AuthType} from '../API/api';
 
-const SET_USER_AUTH = 'SW/SET_USER_AUTH';
-const SET_AUTH_PROFILE = 'SW/SET-AUTH_PROFILE';
+const SET_USER_AUTH = 'SW/SET-USER-AUTH';
+const SET_AUTH_PROFILE = 'SW/SET-AUTH-PROFILE';
+const TOGGLE_IS_FETCHING = 'SW/TOGGLE-IS-FETCHING';
 
 type SetUserAuthAC = ReturnType<typeof setUserAuth>;
 type SetAuthProfileAC = ReturnType<typeof setAuthProfile>;
+type SetToggleIsFetching = ReturnType<typeof toggleIsFetching>;
 
-export type AuthActionsType = SetUserAuthAC | SetAuthProfileAC;
+export type AuthActionsType = SetUserAuthAC | SetAuthProfileAC | SetToggleIsFetching;
 
 export type AuthData = {
     id: number
@@ -22,7 +24,8 @@ export type AuthStateType = {
     messages: null | String[]
     fieldsErrors: null | String[],
     isAuth: boolean
-    profile: null | ProfileType
+    profile: null | ProfileType,
+    isFetching: boolean,
 }
 
 const initialState: AuthStateType = {
@@ -31,7 +34,8 @@ const initialState: AuthStateType = {
     data: null,
     fieldsErrors: null,
     isAuth: false,
-    profile: null
+    profile: null,
+    isFetching:false
 }
 
 export const authReducer = (state: AuthStateType = initialState, action: AuthActionsType) => {
@@ -46,6 +50,11 @@ export const authReducer = (state: AuthStateType = initialState, action: AuthAct
             return {
                 ...state,
                 profile: action.payload.profile
+            }
+            case TOGGLE_IS_FETCHING:
+            return {
+                ...state,
+                isFetching: action.payload.isFetching
             }
         default:
             return state;
@@ -68,15 +77,23 @@ export const setAuthProfile = (profile: ProfileType) => {
         }
     } as const;
 }
-
+export const toggleIsFetching = (isFetching: boolean) => {
+    return {
+        type: TOGGLE_IS_FETCHING,
+        payload: {
+            isFetching
+        }
+    } as const;
+}
 
 export const authMe = (): ThunkType => async (dispatch: ThunkDispatch<AppRootType, unknown, SWActionType>) => {
+    dispatch(toggleIsFetching(true));
 
     try {
         const data = await authAPI.getAuth()
-        console.log(data)
         if (data.resultCode === 0) {
             dispatch(setUserAuth(data));
+            dispatch(toggleIsFetching(false));
             // try {
             //     const response = instance.get(`/profile/${this.props.auth.data?.id}`);
             //     response.then(res => res.data)

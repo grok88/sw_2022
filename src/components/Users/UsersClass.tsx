@@ -4,6 +4,8 @@ import {AppRootType} from '../../redux/store';
 import {follow, getUsers, setCurrPage, unFollow, UsersStateType} from '../../redux/users-reducer';
 import Users from './Users';
 import {Preloader} from '../../common/Preloader/Preloader';
+import {withAuthRedirect} from '../../HOC/AuthRedirect';
+import {compose} from 'redux';
 
 type UsersProps = MapDispatchToProps & MapStateToPropsType;
 
@@ -59,10 +61,23 @@ type MapDispatchToProps = {
     // toggleFollowingIsFetching: (isFetching: boolean, userId: number) => void
 }
 
-export default connect<MapStateToPropsType, MapDispatchToProps, {}, AppRootType>(mapStateToProps, {
-    getUsers,
-    follow,
-    unFollow,
-    setCurrPage,
-})(UsersClass);
+
+// export default connect<MapStateToPropsType, MapDispatchToProps, {}, AppRootType>(mapStateToProps, {
+//     getUsers,
+//     follow,
+//     unFollow,
+//     setCurrPage,
+// })(withAuthRedirect(UsersClass));
+
+
+export default compose<React.ComponentType>(
+    connect<MapStateToPropsType, MapDispatchToProps, {}, AppRootType>(mapStateToProps, {
+        getUsers,
+        follow,
+        unFollow,
+        setCurrPage,
+    }),
+    withAuthRedirect
+)(UsersClass)
+
 

@@ -109,7 +109,6 @@ export const getProfile = (userId: string): ThunkType => async (dispatch: ThunkD
     dispatch(toggleIsFetching(true));
     try {
         const res = await profileAPI.getProfile(userId)
-        console.log(res)
         dispatch(setProfile(res));
         dispatch(toggleIsFetching(false));
 
