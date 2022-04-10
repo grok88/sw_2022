@@ -8,6 +8,7 @@ import {toggleIsFetching} from './users-reducer';
 const ADD_POST = '/SW/ADD-POST';
 const SET_PROFILE = '/SW/SET-PROFILE';
 const ADD_NEW_POST_TEXT = '/SW/ADD-NEW-POST-TEXT';
+const SET_STATUS = '/SW/SET-STATUS';
 
 export type ProfileType = {
     userId: number
@@ -34,14 +35,16 @@ export type ProfileType = {
 export  type ProfileStateType = {
     posts: PostData[]
     newPostText: string,
-    profile: null | ProfileType
+    profile: null | ProfileType,
+    status: null | string
 }
 
-export type  ProfileActionsType = AddPostAC | AddNewPostTextAC | setProfileAC;
+export type  ProfileActionsType = AddPostAC | AddNewPostTextAC | setProfileAC | setStatusAC;
 
 export type AddPostAC = ReturnType<typeof addPost>;
 export type AddNewPostTextAC = ReturnType<typeof addNewPostText>;
 export type setProfileAC = ReturnType<typeof setProfile>;
+export type setStatusAC = ReturnType<typeof setStatus>;
 
 const initialState: ProfileStateType = {
     posts: [
@@ -50,7 +53,8 @@ const initialState: ProfileStateType = {
         {id: 3, message: 'How old are you?', likes: 12},
     ],
     newPostText: '',
-    profile: null
+    profile: null,
+    status: null
 }
 export const profileReducer = (state: ProfileStateType = initialState, action: ProfileActionsType): ProfileStateType => {
     switch (action.type) {
@@ -73,6 +77,11 @@ export const profileReducer = (state: ProfileStateType = initialState, action: P
             return {
                 ...state,
                 profile: action.payload.profile
+            }
+        case SET_STATUS:
+            return {
+                ...state,
+                status: action.payload.status
             }
         default:
             return state;
@@ -103,6 +112,14 @@ export const setProfile = (profile: ProfileType) => {
         }
     } as const;
 }
+export const setStatus = (status: string) => {
+    return {
+        type: SET_STATUS,
+        payload: {
+            status
+        }
+    } as const;
+}
 
 
 export const getProfile = (userId: string): ThunkType => async (dispatch: ThunkDispatch<AppRootType, unknown, SWActionType>) => {
@@ -112,6 +129,27 @@ export const getProfile = (userId: string): ThunkType => async (dispatch: ThunkD
         dispatch(setProfile(res));
         dispatch(toggleIsFetching(false));
 
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const getStatus = (userId: string): ThunkType => async (dispatch: ThunkDispatch<AppRootType, unknown, SWActionType>) => {
+    dispatch(toggleIsFetching(true));
+    try {
+        const res = await profileAPI.getStatus(userId);
+        dispatch(setStatus(res));
+        dispatch(toggleIsFetching(false));
+    } catch (e) {
+        console.log(e)
+    }
+}
+export const updateStatus = (status: string): ThunkType => async (dispatch: ThunkDispatch<AppRootType, unknown, SWActionType>) => {
+    dispatch(toggleIsFetching(true));
+    try {
+        const res = await profileAPI.updateStatus(status);
+        if (res.resultCode === 0) dispatch(setStatus(status));
+        dispatch(toggleIsFetching(false));
     } catch (e) {
         console.log(e)
     }

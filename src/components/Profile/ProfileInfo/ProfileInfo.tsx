@@ -1,16 +1,18 @@
 import React from 'react';
 import styles from './profileInfo.module.css';
 import {ProfileStateType} from '../../../redux/profile-reducer';
+import {ProfileStatus} from './ProfileStatus';
 
 export type ProfileInfoPropsType = {
     profilePage: ProfileStateType
+    updateStatus: (status: string) => void
 }
 
-const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profilePage}) => {
+const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profilePage,updateStatus}) => {
     // const {photos, lookingForAJob, userId, lookingForAJobDescription, fullName, aboutMe} = profilePage.profile as ProfileType
     return <div className={styles.profileInfo}>
         <div>
-            <img src="https://i.imgur.com/3aXPJ2f.png" alt="" width={'100%'}  height={'100%'}/>
+            <img src="https://i.imgur.com/3aXPJ2f.png" alt="" width={'100%'} height={'100%'}/>
         </div>
         <div className={styles.profileUserInfo}>
             <div className={styles.profileUserImg}>
@@ -22,9 +24,7 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profilePage}) => {
                 <div>
                     <span><b>fullName : </b> {profilePage.profile?.fullName}</span>
                 </div>
-                <div>
-                    <span><b>status : </b> {profilePage.profile?.aboutMe}</span>
-                </div>
+                <ProfileStatus profile={profilePage.profile} status={profilePage.status} updateStatus={updateStatus}/>
                 <div>
                     <span><b>lookingForAJob : </b> {profilePage.profile?.lookingForAJob ? 'YES' : 'NO'}</span>
                 </div>

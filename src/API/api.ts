@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AuthData } from '../redux/auth-reducer';
+import {AuthData} from '../redux/auth-reducer';
 import {ProfileType} from '../redux/profile-reducer';
 import {UserType} from '../redux/users-reducer';
 
@@ -38,10 +38,10 @@ export const userAPI = {
 }
 
 
-export type AuthType ={
-    messages:string[]
-    resultCode:number
-    data:AuthData
+export type AuthType = {
+    messages: string[]
+    resultCode: number
+    data: AuthData
     fieldsErrors: null | String[],
 }
 
@@ -53,7 +53,14 @@ export const authAPI = {
 export const profileAPI = {
     getProfile: (id: string) => {
         return instance.get<ProfileType>(`/profile/${id}`).then(res => res.data)
-    }
+    },
+    getStatus: (id: string) => {
+        return instance.get<string>(`/profile/status/${id}`).then(res => res.data)
+    },
+    updateStatus: (status: string) => {
+        return instance.put<AuthType>(`/profile/status`, {status}).then(res => res.data)
+    },
+
 }
 export const friendsAPI = {
     getFriendsList: () => {
