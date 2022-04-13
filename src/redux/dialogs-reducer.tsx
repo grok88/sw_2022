@@ -3,18 +3,14 @@ import {DialogItemPropsType} from '../components/Dialogs/DialogItem/DialogItem';
 import {MessageItemPropsType} from '../components/Dialogs/Message/Message';
 
 const ADD_MESSAGE = '/SW/ADD-MESSAGE';
-const ADD_NEW_MESSAGE_TEXT = '/SW/ADD-NEW-MESSAGE-TEXT';
 
 export  type DialogsStateType = {
     dialogs: DialogItemPropsType[]
     messages: MessageItemPropsType[]
-    newDialogText: string
 }
 
-export type  DialogsActionsType = AddMessageAC | AddNewMessageTextAC;
-
 export type AddMessageAC = ReturnType<typeof addMessage>;
-export type AddNewMessageTextAC = ReturnType<typeof addNewMessageText>;
+export type  DialogsActionsType = AddMessageAC;
 
 const initialState: DialogsStateType = {
     dialogs: [
@@ -30,41 +26,29 @@ const initialState: DialogsStateType = {
         {message: 'I love my parents!!!', id: 2},
         {message: 'I have a dog.', id: 3},
     ],
-    newDialogText: ''
 }
 export const dialogReducer = (state: DialogsStateType = initialState, action: DialogsActionsType): DialogsStateType => {
     switch (action.type) {
         case ADD_MESSAGE:
-            const messages = state.messages;
-            const newMessage: MessageItemPropsType = {
-                id: messages.length + 1,
-                message: state.newDialogText
-            }
 
             return {
                 ...state,
-                messages: [...state.messages, newMessage],
-                newDialogText: ''
+                messages: [...state.messages, {
+                    id: state.messages.length + 1,
+                    message: action.payload.message
+                }],
             }
-        case ADD_NEW_MESSAGE_TEXT:
-            return {
-                ...state,
-                newDialogText: action.message
-            };
         default:
             return state;
     }
 }
 
 //ACTIONS
-export const addMessage = () => {
+export const addMessage = (message: string) => {
     return {
-        type: ADD_MESSAGE
-    } as const;
-}
-export const addNewMessageText = (message: string) => {
-    return {
-        type: ADD_NEW_MESSAGE_TEXT,
-        message
+        type: ADD_MESSAGE,
+        payload: {
+            message
+        }
     } as const;
 }

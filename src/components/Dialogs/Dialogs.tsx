@@ -1,21 +1,18 @@
-import React, {ChangeEvent, useEffect} from 'react';
+import React from 'react';
 import styles from './dialogs.module.css';
 import {DialogItem, DialogItemPropsType} from './DialogItem/DialogItem';
 import {Message, MessageItemPropsType} from './Message/Message';
-import {AuthStateType} from '../../redux/auth-reducer';
-import {useNavigate} from 'react-router-dom';
+import {Field, Form} from 'react-final-form';
 
 export type DialogsProps = {
     dialogsPage: {
         dialogs: DialogItemPropsType[]
         messages: MessageItemPropsType[]
-        newDialogText: string
     }
-    addMessage: () => void
-    addNewMessageText: (value: string) => void
+    addMessage: (message: string) => void
 }
 
-const Dialogs: React.FC<DialogsProps> = ({dialogsPage: {messages, dialogs, newDialogText}, addMessage, addNewMessageText}) => {
+const Dialogs: React.FC<DialogsProps> = ({dialogsPage: {messages, dialogs}, addMessage}) => {
     // const isAuth = auth.isAuth;
     // let navigate = useNavigate();
 
@@ -25,15 +22,10 @@ const Dialogs: React.FC<DialogsProps> = ({dialogsPage: {messages, dialogs, newDi
     // }, [isAuth])
 
     const handler = {
-        addMessage: () => {
-            addMessage();
-        },
-        changeDialogValueHandler: (e: ChangeEvent<HTMLTextAreaElement>) => {
-            let value = e.currentTarget.value;
-            addNewMessageText(value);
+        addMessage: (message: string) => {
+            addMessage(message);
         }
     }
-
 
     return (
         <div className={styles.dialogs} style={{outline: '1px solid red'}}>
@@ -42,17 +34,56 @@ const Dialogs: React.FC<DialogsProps> = ({dialogsPage: {messages, dialogs, newDi
             </div>
             <div className={styles.messages}>
                 {messages.map(m => <Message key={m.id} id={m.id} message={m.message}/>)}
-                <div>
-                    <div>
-                        <textarea value={newDialogText} onChange={handler.changeDialogValueHandler}></textarea>
-                    </div>
-                    <div>
-                        <button onClick={handler.addMessage}>Add message</button>
-                    </div>
-                </div>
+                <DialogsForm addMessage={handler.addMessage}/>
             </div>
         </div>
     );
 };
+
+type DialogsFormPropsType = {
+    addMessage: (message: string) => void
+}
+export const DialogsForm: React.FC<DialogsFormPropsType> = ({addMessage}): React.ReactElement => {
+    const onSubmit = (e: any) => {
+        console.log('onSubmit', e)
+        addMessage(e.message);
+    }
+
+    return <Form
+        onSubmit={onSubmit}
+        render={({handleSubmit, form, submitting, pristine, values}) => (
+            <form onSubmit={event => {
+                handleSubmit(event)
+
+                console.log(form.getState())
+                // const promise = handleSubmit(event)
+                // promise.then(() => {
+                //     return form.reset()
+                // })
+                // return promise;
+            }}>
+                <div>
+                    <Field name="message"
+                           component="textarea"
+                           placeholder="Send message"/>
+                </div>
+                <div>
+                    <button
+                        onClick={() => {
+                            setTimeout(() => {
+                                form.reset();
+                            }, 10)
+                        }}
+                        type={'submit'}
+                        disabled={submitting || pristine}
+                        value={submitting ? 'Loading.....' : 'Valider'}
+                    >
+                        Submit
+                    </button>
+                </div>
+            </form>
+        )}
+    />
+}
 
 export default Dialogs;

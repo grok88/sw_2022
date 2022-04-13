@@ -34,17 +34,15 @@ export type ProfileType = {
 
 export  type ProfileStateType = {
     posts: PostData[]
-    newPostText: string,
     profile: null | ProfileType,
     status: null | string
 }
 
-export type  ProfileActionsType = AddPostAC | AddNewPostTextAC | setProfileAC | setStatusAC;
-
 export type AddPostAC = ReturnType<typeof addPost>;
-export type AddNewPostTextAC = ReturnType<typeof addNewPostText>;
 export type setProfileAC = ReturnType<typeof setProfile>;
 export type setStatusAC = ReturnType<typeof setStatus>;
+
+export type  ProfileActionsType = AddPostAC | setProfileAC | setStatusAC;
 
 const initialState: ProfileStateType = {
     posts: [
@@ -52,7 +50,6 @@ const initialState: ProfileStateType = {
         {id: 2, message: `I'm good`, likes: 7},
         {id: 3, message: 'How old are you?', likes: 12},
     ],
-    newPostText: '',
     profile: null,
     status: null
 }
@@ -61,18 +58,11 @@ export const profileReducer = (state: ProfileStateType = initialState, action: P
         case ADD_POST :
             const posts = state.posts;
 
-            const newPost: PostData = {id: posts.length + 1, message: state.newPostText, likes: 0}
+            const newPost: PostData = {id: posts.length + 1, message: action.payload.value, likes: 0}
             return {
                 ...state,
                 posts: [...state.posts, newPost],
-                newPostText: ''
             }
-        case ADD_NEW_POST_TEXT:
-            state.newPostText = action.payload.message;
-            return {
-                ...state,
-                newPostText: action.payload.message
-            };
         case SET_PROFILE:
             return {
                 ...state,
@@ -90,17 +80,11 @@ export const profileReducer = (state: ProfileStateType = initialState, action: P
 
 
 //ACTIONS
-export const addPost = () => {
+export const addPost = (value: string) => {
     return {
-        type: ADD_POST
-    } as const;
-}
-
-export const addNewPostText = (message: string) => {
-    return {
-        type: ADD_NEW_POST_TEXT,
+        type: ADD_POST,
         payload: {
-            message
+            value
         }
     } as const;
 }

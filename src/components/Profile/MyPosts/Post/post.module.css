@@ -1,5 +1,25 @@
+.item {
+    margin-bottom: 10px;
+    background-color: seagreen;
+    padding: 10px;
+}
 
-.item img{
+.item:last-child {
+    margin-bottom: 0;
+}
+
+.item img {
     width: 60px;
     border-radius: 50%;
+}
+
+/*media*/
+@media (min-width: 768px) {
+    .item {
+        width: 100%;
+    }
+
+    .item:last-child {
+
+    }
 }

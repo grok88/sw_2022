@@ -1,7 +1,6 @@
 import React from 'react';
 import {Field, Form} from 'react-final-form'
 
-
 type LoginPropsType = {}
 
 export const Login: React.FC<LoginPropsType> = (): React.ReactElement => {

@@ -28,8 +28,7 @@ export const ProfileStatus: React.FC<ProfileStatusPropsType> = ({profile, update
         if (e.code === 'Enter') closeEditMode();
         if (e.code === 'Escape') setEditMode(false);
     }
-    console.log(value)
-    console.log(status)
+
     return <div>
         {
             editMode
@@ -42,7 +41,7 @@ export const ProfileStatus: React.FC<ProfileStatusPropsType> = ({profile, update
                     />
                 </div>
                 : <div style={{cursor: 'pointer'}}>
-                    <span onClick={openEditMode}><b>status : </b> {status}</span>
+                    <span onClick={openEditMode}><b>status : </b> {status || 'Not status'}</span>
                 </div>
         }
     </div>

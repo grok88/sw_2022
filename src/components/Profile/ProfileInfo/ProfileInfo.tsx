@@ -8,7 +8,7 @@ export type ProfileInfoPropsType = {
     updateStatus: (status: string) => void
 }
 
-const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profilePage,updateStatus}) => {
+const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profilePage, updateStatus}) => {
     // const {photos, lookingForAJob, userId, lookingForAJobDescription, fullName, aboutMe} = profilePage.profile as ProfileType
     return <div className={styles.profileInfo}>
         <div>
@@ -29,7 +29,7 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profilePage,updateStatus})
                     <span><b>lookingForAJob : </b> {profilePage.profile?.lookingForAJob ? 'YES' : 'NO'}</span>
                 </div>
                 <div>
-                    <span><b>lookingForAJobDescription : </b> {profilePage.profile?.lookingForAJobDescription}</span>
+                    <span><b>lookingForAJobDescription : </b> {profilePage.profile?.lookingForAJobDescription || 'Not description'}</span>
                 </div>
             </div>
         </div>

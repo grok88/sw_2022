@@ -1,8 +1,9 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 
 import styles from './myPosts.module.css';
 import Post from './Post/Post';
 import {ProfileStateType} from '../../../redux/profile-reducer';
+import {AddNewPostForm} from './AddNewPostForm';
 
 export type PostData = {
     id: number
@@ -11,41 +12,34 @@ export type PostData = {
 }
 export type MyPostsPropsType = {
     profilePage: ProfileStateType
-    addPost: () => void
-    addNewPostText: (value: string) => void
+    addPost: (value: string) => void
 }
 
 
-const MyPosts: React.FC<MyPostsPropsType> = ({profilePage, addNewPostText, addPost}) => {
-    const {newPostText, posts} = profilePage;
+const MyPosts: React.FC<MyPostsPropsType> = ({profilePage, addPost}) => {
+    const {posts} = profilePage;
 
-    const handler = {
-        addPostHandler: () => {
-            if (newPostText) addPost();
-        },
-        changePostValueHandler: (e: ChangeEvent<HTMLTextAreaElement>) => {
-            addNewPostText(e.target.value);
-        }
+    const addPostHandler = (value: string) => {
+        if (value) addPost(value);
     }
 
     return (
-        <div>
-            <div className={styles.sendPost}>
+        <div className={styles.myPostsContainer}>
+            <div className={styles.myPostsTitle}>
                 <h3>MyPost</h3>
-                <div>
-                    <textarea value={newPostText}
-                              onChange={handler.changePostValueHandler}></textarea>
-                </div>
-                <div>
-                    <button onClick={handler.addPostHandler}>Send</button>
-                </div>
             </div>
-            <div className={styles.posts}>
-                {
-                    posts.map(post => {
-                        return <Post key={post.id} message={post.message} likes={post.likes}/>
-                    })
-                }
+            <div className={styles.myPostsBlock}>
+                <div className={styles.posts}>
+                    {
+                        posts.map(post => {
+                            return <Post key={post.id} message={post.message} likes={post.likes}/>
+                        })
+                    }
+                </div>
+                <div className={styles.sendPost}>
+                    <h3>Add new Post!</h3>
+                    <AddNewPostForm addPost={addPostHandler}/>
+                </div>
             </div>
         </div>
     );
