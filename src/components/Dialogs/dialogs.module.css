@@ -16,3 +16,14 @@
 .messages {
 
 }
+
+
+.addPostFormText {
+    min-width: 60%;
+    margin-right: 10px;
+}
+
+.addPostFormText textarea {
+    width: 100%;
+    height: 100%;
+}

@@ -3,6 +3,8 @@ import styles from './dialogs.module.css';
 import {DialogItem, DialogItemPropsType} from './DialogItem/DialogItem';
 import {Message, MessageItemPropsType} from './Message/Message';
 import {Field, Form} from 'react-final-form';
+import {composeValidators, maxLengthCreator, required} from '../../utils/validate/validate';
+import {TextArea} from '../../common/TextArea/TextArea';
 
 export type DialogsProps = {
     dialogsPage: {
@@ -54,28 +56,32 @@ export const DialogsForm: React.FC<DialogsFormPropsType> = ({addMessage}): React
         render={({handleSubmit, form, submitting, pristine, values}) => (
             <form onSubmit={event => {
                 handleSubmit(event)
-
-                console.log(form.getState())
                 // const promise = handleSubmit(event)
                 // promise.then(() => {
                 //     return form.reset()
                 // })
                 // return promise;
             }}>
+                {/*<div>*/}
+                {/*    <Field name="message"*/}
+                {/*           component="textarea"*/}
+                {/*           placeholder="Send message"/>*/}
+                {/*</div>*/}
                 <div>
                     <Field name="message"
-                           component="textarea"
-                           placeholder="Send message"/>
+                           validate={composeValidators(required, maxLengthCreator(100),)}
+                    >
+                        {({input, meta}) => <TextArea input={input} meta={meta} placeholder={'Add new Message'}/>}
+                    </Field>
                 </div>
                 <div>
                     <button
-                        onClick={() => {
-                            setTimeout(() => {
-                                form.reset();
-                            }, 10)
-                        }}
+                        // onClick={() => {
+                        //     setTimeout(() => {
+                        //         form.reset();
+                        //     }, 10)
+                        // }}
                         type={'submit'}
-                        disabled={submitting || pristine}
                         value={submitting ? 'Loading.....' : 'Valider'}
                     >
                         Submit

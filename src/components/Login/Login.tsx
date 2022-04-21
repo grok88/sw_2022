@@ -1,5 +1,6 @@
 import React from 'react';
 import {Field, Form} from 'react-final-form'
+import {Input} from '../../common/TextArea/TextArea';
 
 type LoginPropsType = {}
 
@@ -17,7 +18,7 @@ export const LoginForm: React.FC<LoginPropsType> = () => {
     return <Form
         onSubmit={onSubmit}
         validate={values => {
-            const errors:any = {}
+            const errors: any = {}
             if (!values.login) {
                 errors.login = 'Required'
             }
@@ -36,35 +37,33 @@ export const LoginForm: React.FC<LoginPropsType> = () => {
                     {/*           type="text"*/}
                     {/*           placeholder="LOGIN"/>*/}
                     {/*</label>   */}
-                    <Field name="login">
-                        {({ input, meta }) => (
-                            <div>
-                                <label>LOGIN</label>
-                                <input {...input} type="text" placeholder="LOGIN" />
-                                {meta.error && meta.touched && <span>{meta.error}</span>}
-                            </div>
-                        )}
+                    <Field name="login" component={Input}>
+                        {/*{({ input, meta }) => (*/}
+                        {/*    <div>*/}
+                        {/*    */}
+                        {/*        <input {...input} type="text" placeholder="LOGIN" />*/}
+                        {/*    </div>*/}
+                        {/*)}*/}
                     </Field>
                 </div>
                 <div>
-                    <label>PASSWORD
-                        <Field name="password"
-                               component="input"
-                               type="password"
-                               placeholder="PASSWORD"/>
-                    </label>
+                    <Field name="password"
+                           component={Input}
+                           type="password"
+                        // placeholder="PASSWORD"
+                    />
+
                 </div>
                 <div>
                     <label>Remember me
                         <Field name="remember"
                                component="input"
-                               type="chec kbox"
+                               type="checkbox"
                         />
                     </label>
                 </div>
                 <div>
                     <button type={'submit'}>Submit</button>
-                    <button onClick={form.reset}>Reset Form</button>
                 </div>
             </form>
         )}
