@@ -1,15 +1,20 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import styles from './Header.module.css';
 import {AppRootType} from '../../redux/store';
-import {authMe, AuthStateType} from '../../redux/auth-reducer';
+import {authMe, AuthStateType, logout} from '../../redux/auth-reducer';
 
 type HeaderPropsType = {
     auth: AuthStateType
+    logout: () => void
 }
 
-const Header: React.FC<HeaderPropsType> = ({auth: {data, isAuth, profile}}) => {
+const Header: React.FC<HeaderPropsType> = ({auth: {data, isAuth, profile}, logout}) => {
+    let navigate = useNavigate();
+    const logoutHandler = () => logout();
+    console.log(isAuth)
+    // if (!isAuth) navigate('/login')
 
     return (
         <header className={styles.header}>
@@ -20,7 +25,10 @@ const Header: React.FC<HeaderPropsType> = ({auth: {data, isAuth, profile}}) => {
                         <img
                             src={profile && profile.photos.small ? profile.photos.small as string | undefined : 'https://avatars.mds.yandex.net/i?id=6800826dcb47da02afe319b4465e1a0f-5282880-images-thumbs&n=13&exp=1'}
                             alt="" width={80} height={80}/>
-                        <span>{data?.login}</span>
+                        <div className={styles.userBlock}>
+                            <span>{data?.login}</span>
+                            <button className={styles.loginBtn} onClick={logoutHandler}>Logout</button>
+                        </div>
                     </div>
                     : <div className={styles.redirectBlock}>
                         <NavLink to='/login'>
@@ -38,8 +46,8 @@ class HeaderContainer extends React.Component<MapStateToProps & MapDispatchToPro
         this.props.authMe();
     }
 
-    render({auth} = this.props) {
-        return <Header auth={auth}/>
+    render({auth, logout} = this.props) {
+        return <Header auth={auth} logout={logout}/>
     }
 }
 
@@ -48,6 +56,7 @@ type MapStateToProps = {
 }
 type MapDispatchToProps = {
     authMe: () => void
+    logout: () => void
 }
 const mapStateToProps = (state: AppRootType): MapStateToProps => {
     return {
@@ -55,7 +64,8 @@ const mapStateToProps = (state: AppRootType): MapStateToProps => {
     }
 }
 export default connect<MapStateToProps, MapDispatchToProps, {}, AppRootType>(mapStateToProps, {
-    authMe
+    authMe,
+    logout
 })(HeaderContainer);
 
 //setUserAuth = (data: AuthStateType) =>

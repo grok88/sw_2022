@@ -7,7 +7,6 @@ import {toggleIsFetching} from './users-reducer';
 
 const ADD_POST = '/SW/ADD-POST';
 const SET_PROFILE = '/SW/SET-PROFILE';
-const ADD_NEW_POST_TEXT = '/SW/ADD-NEW-POST-TEXT';
 const SET_STATUS = '/SW/SET-STATUS';
 
 export type ProfileType = {

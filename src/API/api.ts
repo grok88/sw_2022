@@ -48,6 +48,12 @@ export type AuthType = {
 export const authAPI = {
     getAuth: () => {
         return instance.get<AuthType>('/auth/me').then(res => res.data)
+    } ,
+    login: (email:string, password:string,rememberMe:boolean = false) => {
+        return instance.post<AuthType>('/auth/login', {email, password,rememberMe}).then(res => res.data)
+    } ,
+    logout: () => {
+        return instance.delete<AuthType>('/auth/login').then(res => res.data)
     }
 }
 export const profileAPI = {

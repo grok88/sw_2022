@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import styles from './TextArea.module.css'
 
-type FormControll = {
+type FormControllType = {
     input: any
     meta: any
     placeholder: string
@@ -15,7 +15,7 @@ type TextAreaProps = {
     label?: string
 }
 
-const FormControll: FC<FormControll> = ({input, meta, placeholder, label, children}) => {
+const FormControll: FC<FormControllType> = ({input, meta, placeholder, label, children}) => {
     const hasError = meta.error && meta.touched;
     return <div className={styles.formControll + ' ' + (hasError ? styles.error : '')}>
         {label && <label>LOGIN</label>}

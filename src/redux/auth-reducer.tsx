@@ -35,7 +35,7 @@ const initialState: AuthStateType = {
     fieldsErrors: null,
     isAuth: false,
     profile: null,
-    isFetching:false
+    isFetching: false
 }
 
 export const authReducer = (state: AuthStateType = initialState, action: AuthActionsType) => {
@@ -44,14 +44,13 @@ export const authReducer = (state: AuthStateType = initialState, action: AuthAct
             return {
                 ...state,
                 ...action.payload.data,
-                isAuth: true
             }
         case SET_AUTH_PROFILE:
             return {
                 ...state,
                 profile: action.payload.profile
             }
-            case TOGGLE_IS_FETCHING:
+        case TOGGLE_IS_FETCHING:
             return {
                 ...state,
                 isFetching: action.payload.isFetching
@@ -61,7 +60,7 @@ export const authReducer = (state: AuthStateType = initialState, action: AuthAct
     }
 }
 
-export const setUserAuth = (data: AuthType) => {
+export const setUserAuth = (data: AuthType & { isAuth: boolean }) => {
     return {
         type: SET_USER_AUTH,
         payload: {
@@ -88,11 +87,10 @@ export const toggleIsFetching = (isFetching: boolean) => {
 
 export const authMe = (): ThunkType => async (dispatch: ThunkDispatch<AppRootType, unknown, SWActionType>) => {
     dispatch(toggleIsFetching(true));
-
     try {
         const data = await authAPI.getAuth()
         if (data.resultCode === 0) {
-            dispatch(setUserAuth(data));
+            dispatch(setUserAuth({...data, isAuth: true}));
             dispatch(toggleIsFetching(false));
             // try {
             //     const response = instance.get(`/profile/${this.props.auth.data?.id}`);
@@ -108,5 +106,28 @@ export const authMe = (): ThunkType => async (dispatch: ThunkDispatch<AppRootTyp
 
     } catch (e) {
 
+    }
+}
+export const login = (email:string, password:string,rememberMe:boolean = false): ThunkType => async (dispatch: ThunkDispatch<AppRootType, unknown, SWActionType>) => {
+    dispatch(toggleIsFetching(true));
+    try {
+        const data = await authAPI.login(email, password,rememberMe);
+        console.log(data)
+        if (data.resultCode === 0) {
+            dispatch(setUserAuth({...data, isAuth: true}));
+            dispatch(toggleIsFetching(false));
+        }
+    } catch (e) {
+    }
+}
+export const logout = (): ThunkType => async (dispatch: ThunkDispatch<AppRootType, unknown, SWActionType>) => {
+    dispatch(toggleIsFetching(true));
+    try {
+        const data = await authAPI.logout()
+        if (data.resultCode === 0) {
+            dispatch(setUserAuth({...data, isAuth: false}));
+            dispatch(toggleIsFetching(false));
+        }
+    } catch (e) {
     }
 }
